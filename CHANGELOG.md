@@ -24,6 +24,8 @@ Initial public alpha release candidate.
   organization, public-federation, Docker, adapter, and extension workflows.
 - Initial curated public-mesh directory specification, schema, empty canonical
   registry, and operator registration workflow; discovery never grants trust.
+- Safe `oncemesh-discover` validation, listing, filtering, and inspection CLI,
+  with portable semantic rejection vectors and distribution checks.
 - Fixed conditional substitution reporting so the schema-shaped result is
   returned instead of falling through with no value.
 

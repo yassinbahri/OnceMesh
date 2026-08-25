@@ -87,6 +87,7 @@ Included:
 - bounded HTTP stale-while-revalidate with exact-action single-flight refresh;
 - explicit, signed, public-only federation with local trust and transfer limits;
 - authenticated bounded federation HTTP with HTTPS-by-default client policy;
+- a curated public mesh directory with capabilities and aggregate statistics;
 - a framework-neutral private execution-cache bridge with thin runtime adapters;
 - freshness and trust checks;
 - local and organization-store semantics;
@@ -201,6 +202,23 @@ python -m unittest discover -s tests -p "test_federation_http.py" -v
 Plain HTTP is rejected unless the client explicitly enables the loopback-only
 test override. Real peer deployments require HTTPS and operational controls
 described in the transport specification.
+
+## Discover public meshes
+
+The curated community directory helps users find public federation operators by
+operation, region, and status without turning discovery into trust:
+
+```bash
+oncemesh-discover list
+oncemesh-discover list --operation document.pdf-to-text/1 --region eu-central
+oncemesh-discover inspect <peer-id>
+```
+
+The initial directory is intentionally empty until a real operator completes
+registration. Listings expose public identities and optional aggregate stats,
+but the CLI never probes an endpoint, changes peer configuration, imports a key,
+or authorizes reuse. See the [directory policy](directory/README.md) and
+[`public-mesh-directory-v0`](spec/public-mesh-directory-v0.md).
 
 ## Agent-runtime integration
 

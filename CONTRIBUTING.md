@@ -77,6 +77,8 @@ only and must never become a second implementation.
 - Secret-manager, monitoring, deployment, backup, and retention integrations.
 - Reproducible shadow evaluations with content-free aggregate evidence.
 - Threat-model review, failure-path tests, and independent federation pilots.
+- Public mesh registrations and privacy-preserving aggregate statistics that
+  follow `spec/public-mesh-directory-v0.md`.
 
 The project welcomes negative results. Evidence that a reuse profile is slower,
 too expensive, nondeterministic, or unsafe helps keep the mesh trustworthy.

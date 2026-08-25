@@ -115,7 +115,8 @@ real workload with accountable owners can pass the real-environment gate.
 
 ### Public federation
 
-Federation is narrow by design. There is no automatic public discovery and no
+Federation is narrow by design. The curated directory can help a user find an
+operator, but there is no automatic trust, decentralized discovery, or
 transitive trust. A receiver explicitly configures an origin endpoint, request
 identity, availability key, trusted receipt keys, allowed producers and
 operations, size bounds, timeouts, and a local retention lease.
@@ -149,6 +150,26 @@ Request signatures prevent anonymous access and replay; TLS protects transport;
 receipts authenticate result claims; content digests protect artifacts; and the
 receiver's policy decides whether the claim is acceptable. None of these proves
 that an output is semantically correct.
+
+### Discover a public mesh
+
+```bash
+oncemesh-discover list
+oncemesh-discover list --operation document.pdf-to-text/1 --region eu-central
+oncemesh-discover inspect <peer-id>
+```
+
+The command reads the canonical curated snapshot from this repository. Search
+shows capabilities, region, status, public key fingerprints, and optional
+aggregate statistics. `observed` means a directory-controlled health check
+reached the endpoint during the stated window; it does not certify the operator
+or its results.
+
+Discovery stops at inspection. To use a mesh, independently verify the operator
+and key fingerprints, decide which producers and operations to trust, then add a
+peer to the receiver's local configuration. See the
+[`directory policy`](../directory/README.md). The directory begins empty rather
+than presenting the one-host Docker simulation as a public operator.
 
 ## Run the Docker federation rehearsal
 
@@ -294,6 +315,10 @@ identifiers, credentials, private keys, or raw payloads.
 Improve deployment examples, observability, secret-manager integrations,
 retention tools, and operator runbooks. A genuine independently administered
 two-organization pilot is a major project milestone.
+
+Public mesh operators can also submit a directory registration. Profiles must
+remain public-only, expose public keys rather than secrets, and label statistics
+as operator-reported until directory-controlled probes exist.
 
 ### Documentation and review
 

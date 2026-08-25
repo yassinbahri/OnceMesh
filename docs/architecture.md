@@ -103,6 +103,10 @@ Federation is explicit, public-only, non-transitive, and fail-closed. A valid
 signature authenticates a claim; it does not prove semantic correctness. The
 receiver retains its own policy authority.
 
+The public directory is outside this trust path. It helps a user locate and
+compare operators, but it never inserts a peer, imports a key, probes an
+endpoint, or changes receiver policy.
+
 ## Evidence and promotion ladder
 
 ```mermaid

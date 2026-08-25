@@ -11,3 +11,7 @@ It also verifies source-validation digests, PDF actions, negative canonicalizati
 vectors, receipt digests, and Ed25519 receipt signatures without importing the
 Python reference implementation.
 The runner also reproduces the keyed authorization-partition vector.
+
+`public-mesh-directory-v0.json` provides one valid directory and portable
+semantic rejection mutations. Run `python scripts/verify_public_directory.py`
+to verify both the JSON Schema and reference validation rules.

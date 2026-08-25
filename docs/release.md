@@ -7,6 +7,8 @@
 2. Confirm protocol changes have explicit spec versions and vectors.
 3. Run repository hygiene, static analysis, coverage, schema validation, and the
    live dependency vulnerability audit.
+   This includes `python scripts/verify_public_directory.py` for the curated
+   directory schema and semantic rejection vectors.
 4. Run both dependency-light and full-adapter tests, Node conformance, package
    verification, and Docker federation acceptance.
 5. Build from a clean checkout with `python -m build` and validate with

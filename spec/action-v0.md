@@ -200,7 +200,8 @@ Logs must not expose secrets or raw private inputs.
 
 - probabilistic or semantic cache substitution;
 - consensus about artifact correctness;
-- public peer discovery;
+- automatic or authoritative public peer discovery (the optional informational
+  directory is defined by `public-mesh-directory-v0` and never grants trust);
 - remote execution;
 - mutation or invalidation of immutable artifacts;
 - prescribing a specific database, CAS, or wire transport.

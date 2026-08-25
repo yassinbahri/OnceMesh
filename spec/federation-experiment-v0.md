@@ -117,7 +117,7 @@ policy. Re-import requires the result to be currently advertised again.
 
 ## 8. Non-goals
 
-- automatic or public peer discovery;
+- automatic peer discovery or trust derived from an informational directory;
 - transitive trust or forwarding imported results;
 - private artifact federation;
 - distributed consensus about correctness;

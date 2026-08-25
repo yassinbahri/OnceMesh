@@ -38,3 +38,30 @@ operator's request.
 Report vulnerabilities privately under `SECURITY.md`. Never place private keys,
 credentials, tenant information, payloads, action digests, or per-request logs in
 an issue or directory entry.
+
+## Use the directory
+
+The CLI fetches only this repository's canonical raw HTTPS snapshot unless a
+local file is explicitly selected:
+
+```bash
+oncemesh-discover validate
+oncemesh-discover list
+oncemesh-discover list --operation document.pdf-to-text/1 --region eu-central
+oncemesh-discover inspect example-peer
+```
+
+Validate a proposed local change without network access:
+
+```bash
+oncemesh-discover validate --directory directory/public-meshes.json
+python scripts/verify_public_directory.py
+```
+
+`list` and `inspect` display metadata only. They never contact a mesh endpoint,
+write peer configuration, import a key, or grant trust. The canonical directory
+is currently empty because no independently operated public endpoint has yet
+completed registration.
+
+The complete profile shape and accepted/rejected examples are in
+[`conformance/public-mesh-directory-v0.json`](../conformance/public-mesh-directory-v0.json).
