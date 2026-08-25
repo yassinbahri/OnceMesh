@@ -199,6 +199,10 @@ class FederationHTTPTests(unittest.TestCase):
                 clock=lambda: self.now,
                 tls_context=server_context,
             ) as server:
+                self.assertGreaterEqual(
+                    server_context.minimum_version,
+                    ssl.TLSVersion.TLSv1_2,
+                )
                 self.assertTrue(server.base_url.startswith("https://"))
                 outcome = import_from_peer(
                     self.action,

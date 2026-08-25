@@ -13,7 +13,6 @@ sys.path.insert(0, str(ROOT / "src"))
 from oncemesh import (  # noqa: E402
     FilesystemStore,
     MemoryStore,
-    action_digest,
     manifest_digest,
     publish_signed_result,
     raw_public_key,

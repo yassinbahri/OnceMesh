@@ -342,6 +342,7 @@ class FederationHTTPServer:
         self._server = ThreadingHTTPServer((host, port), Handler)
         self._server.daemon_threads = True
         if tls_context is not None:
+            tls_context.minimum_version = ssl.TLSVersion.TLSv1_2
             self._server.socket = tls_context.wrap_socket(self._server.socket, server_side=True)
         self._scheme = "https" if tls_context is not None else "http"
         self._thread: threading.Thread | None = None

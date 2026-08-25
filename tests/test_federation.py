@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from oncemesh import (  # noqa: E402
-    FederationBundle, FederationCacheStore, FederationPeerConfig, FilesystemFederationCacheStore, MemoryStore,
+    FederationCacheStore, FederationPeerConfig, FilesystemFederationCacheStore, MemoryStore,
     PublicPeerCatalog, action_digest, digest_bytes, import_from_peer,
     manifest_digest, publish_signed_result, raw_public_key, sign_availability, verify_availability,
 )

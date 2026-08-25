@@ -146,9 +146,9 @@ def _relative(base: Path, value: Any, label: str) -> Path:
     return (selected if selected.is_absolute() else base / selected).resolve()
 
 
-def _write_new(path: Path, data: bytes, mode: int) -> None:
+def _write_new(path: Path, data: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, mode)
+    descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     try:
         with os.fdopen(descriptor, "wb") as output:
             output.write(data)
@@ -215,9 +215,9 @@ def generate_federation_identity(
     }
     validate_federation_identity(identity, purpose=purpose)
     secret_text = base64.urlsafe_b64encode(seed).rstrip(b"=") + b"\n"
-    _write_new(private_path, secret_text, 0o600)
+    _write_new(private_path, secret_text)
     try:
-        _write_new(public_path, canonical_json(identity) + b"\n", 0o644)
+        _write_new(public_path, canonical_json(identity) + b"\n")
     except BaseException:
         try:
             private_path.unlink()
@@ -277,7 +277,7 @@ def package_publication(
     }
     verification_store = MemoryStore("publication-packager")
     _load_publication_document(publication, verification_store)
-    _write_new(output_path, canonical_json(publication) + b"\n", 0o644)
+    _write_new(output_path, canonical_json(publication) + b"\n")
     return publication
 
 
@@ -323,7 +323,7 @@ def withdraw_origin_publication(
         raise ValueError("withdrawal must match exactly one configured publication")
     withdrawn = dict(document)
     withdrawn["publications"] = retained
-    _write_new(output_path, canonical_json(withdrawn) + b"\n", 0o644)
+    _write_new(output_path, canonical_json(withdrawn) + b"\n")
     return {
         "spec_version": "oncemesh.federation-withdrawal-report/v0",
         "peer_id": document["peer_id"],
@@ -355,7 +355,7 @@ def prune_receiver_cache(
         "after": after,
         "passed": removed > 0 and after["entries"] == 0 and after["blobs"] == 0,
     }
-    _write_new(evidence_path, canonical_json(report) + b"\n", 0o644)
+    _write_new(evidence_path, canonical_json(report) + b"\n")
     return report
 
 
@@ -923,7 +923,7 @@ def main() -> None:
             report = prune_receiver_cache(args.cache_directory, args.evidence)
         print(json.dumps(report, indent=2, sort_keys=True))
     except (OSError, ssl.SSLError, ValueError) as error:
-        print(f"error: {error}", file=sys.stderr)
+        print(f"error: operation failed ({type(error).__name__})", file=sys.stderr)
         raise SystemExit(2) from error
 
 

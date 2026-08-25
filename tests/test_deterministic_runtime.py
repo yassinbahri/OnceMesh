@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
+import os
 import sys
 import tempfile
 import unittest
@@ -24,6 +25,16 @@ from test_pdf_adapter import fixture_pdf  # noqa: E402
 
 class DeterministicRuntimeTests(unittest.TestCase):
     PRIVATE_SEED = bytes.fromhex("33" * 32)
+
+    @staticmethod
+    def write_fixture(path: Path, value: str) -> None:
+        descriptor = os.open(
+            path,
+            os.O_WRONLY | os.O_CREAT | os.O_TRUNC,
+            0o600,
+        )
+        with os.fdopen(descriptor, "w", encoding="utf-8") as output:
+            output.write(value)
 
     def setUp(self) -> None:
         self.now = datetime(2026, 8, 24, 18, tzinfo=timezone.utc)
@@ -64,11 +75,14 @@ class DeterministicRuntimeTests(unittest.TestCase):
 
     def invoke(self, directory, document, environment=None, key_document=None, caller_partition=None):
         path = Path(directory) / "policy.json"
-        path.write_text(json.dumps(document), encoding="utf-8")
+        self.write_fixture(path, json.dumps(document))
         key_registry = None
         if key_document is not None:
             key_path = Path(directory) / "keys.json"
-            key_path.write_text(key_document if isinstance(key_document, str) else json.dumps(key_document), encoding="utf-8")
+            self.write_fixture(
+                key_path,
+                key_document if isinstance(key_document, str) else json.dumps(key_document),
+            )
             key_registry = FileReceiptKeyRegistry(key_path)
         calls = 0
 

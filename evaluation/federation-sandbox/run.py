@@ -507,7 +507,13 @@ def execute(report_path: Path) -> dict[str, Any]:
     if report_path.exists():
         raise ValueError("simulation report path already exists")
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    report_path.write_bytes(canonical_json(evidence) + b"\n")
+    descriptor = os.open(
+        report_path,
+        os.O_WRONLY | os.O_CREAT | os.O_EXCL,
+        0o600,
+    )
+    with os.fdopen(descriptor, "wb") as output:
+        output.write(canonical_json(evidence) + b"\n")
     return evidence
 
 
@@ -518,8 +524,9 @@ def main() -> None:
         default=str(ROOT / "evaluation" / "results" / "federation-simulated-acceptance-20260824.json"),
     )
     args = parser.parse_args()
-    report = execute(Path(args.report).resolve())
-    print(json.dumps(report, indent=2, sort_keys=True))
+    report_path = Path(args.report).resolve()
+    execute(report_path)
+    print(f"simulated federation acceptance passed; report written to {report_path}")
 
 
 if __name__ == "__main__":

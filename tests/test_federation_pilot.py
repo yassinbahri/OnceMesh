@@ -190,6 +190,7 @@ class FederationPilotTests(unittest.TestCase):
             self.assertEqual(json.loads(public_text), identity)
             if os.name != "nt":
                 self.assertEqual(stat.S_IMODE(private_path.stat().st_mode), 0o600)
+                self.assertEqual(stat.S_IMODE(public_path.stat().st_mode), 0o600)
             with self.assertRaisesRegex(ValueError, "must not already exist"):
                 generate_federation_identity(
                     "org-b", "request", private_path, public_path
