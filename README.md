@@ -2,10 +2,21 @@
 
 **Compute once. Reuse safely.**
 
-OnceMesh is a specification and reference implementation for reusing agent and
-workflow computations. It identifies an operation from all inputs that can
-affect its output, stores outputs as content-addressed artifacts, and applies an
-explicit admissibility policy before substituting a previous result.
+Agents repeatedly fetch the same sources, parse the same documents, run the same
+tools, and rebuild the same intermediate results. OnceMesh makes that work
+reusable without turning correctness, privacy, or trust into an implicit cache
+setting.
+
+OnceMesh is an open specification and reference implementation for exact reuse
+across agent and workflow runtimes. It identifies a computation from every input
+that can affect its output, stores results as content-addressed artifacts, and
+applies explicit authorization, freshness, provenance, and integrity policy
+before returning previous work.
+
+It can begin as a private cache on one machine, grow into an organization-owned
+reuse layer, and—only for deliberately public results—connect to explicitly
+trusted federation peers. It is not a semantic prompt cache or an automatic
+global data-sharing network.
 
 This repository is specification-first. Normative behavior is defined in
 [`spec/action-v0.md`](spec/action-v0.md); the Python package is a small reference
@@ -15,6 +26,10 @@ The current release candidate is `0.1.0`. It is an alpha-quality protocol and
 reference implementation, not a claim of production validation. See the
 [`CHANGELOG.md`](CHANGELOG.md), [`SECURITY.md`](SECURITY.md), and
 [`docs/release.md`](docs/release.md) before deployment.
+
+New to the project? Read the [practical guide](docs/user-guide.md) for the full
+journey from local reuse to private partitions, organization operation, the
+Docker federation rehearsal, and contributing a new part of the open mesh.
 
 ## How it works
 
@@ -88,6 +103,8 @@ Explicitly deferred:
 
 ## Repository map
 
+- `docs/user-guide.md` — practical path through local, private, organization,
+  public federation, Docker, adapters, and contribution
 - `spec/action-v0.md` — normative protocol specification
 - `spec/decisions/` — architectural decision records
 - `schemas/` — JSON Schemas for interchange objects
@@ -271,14 +288,16 @@ With Docker Desktop running, the complete three-role technical rehearsal can be
 executed with:
 
 ```bash
-python evaluation/federation-sandbox/run.py
+python evaluation/federation-sandbox/run.py \
+  --report .oncemesh-cache/federation-acceptance-local.json
 ```
 
 It uses isolated origin, receiver, and untrusted-peer containers; an internal
 network; scoped Docker secrets; verified test TLS; write-once withdrawal; and a
 durable receiver lease. The generated report is always labeled simulated and
 cannot be used as evidence of independent organizational control. See
-[`spec/federation-simulated-acceptance-v0.md`](spec/federation-simulated-acceptance-v0.md).
+[`spec/federation-simulated-acceptance-v0.md`](spec/federation-simulated-acceptance-v0.md)
+and the [step-by-step Docker explanation](docs/user-guide.md#run-the-docker-federation-rehearsal).
 
 ## Evaluation runner
 

@@ -2,6 +2,25 @@
 
 OnceMesh follows a specification-driven workflow.
 
+Contributions can extend the protocol, add an adapter or codec, implement a
+storage/index backend, reproduce measurements, improve operations, or make the
+project easier to understand. The [practical guide](docs/user-guide.md#help-build-the-open-mesh)
+explains each path and the boundaries between public, private, organization, and
+federated reuse.
+
+## Before opening a pull request
+
+1. Open or link an issue for behavior that changes the protocol, safety model,
+   public API, or interoperability contract.
+2. Keep one pull request focused on one reviewable outcome.
+3. Add the specification or decision record before implementation when behavior
+   changes.
+4. Include tests for the successful path and the unsafe or rejected boundary.
+5. Record measured results and limitations for performance claims.
+
+Documentation fixes and additional tests that do not change behavior can go
+directly to a focused pull request.
+
 ## Proposing behavior
 
 Open a proposal that states:
@@ -50,3 +69,14 @@ Every adapter needs a dependency-free registry descriptor, an individual
 optional dependency extra, shared conformance probes, native contract tests, and
 at least one real framework workflow test. Compatibility shims contain imports
 only and must never become a second implementation.
+
+## Other high-value contributions
+
+- Independent conformance runners in Go, Rust, JavaScript, or other languages.
+- Store and `ActiveKeyIndex` implementations for production infrastructure.
+- Secret-manager, monitoring, deployment, backup, and retention integrations.
+- Reproducible shadow evaluations with content-free aggregate evidence.
+- Threat-model review, failure-path tests, and independent federation pilots.
+
+The project welcomes negative results. Evidence that a reuse profile is slower,
+too expensive, nondeterministic, or unsafe helps keep the mesh trustworthy.
