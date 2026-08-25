@@ -1,0 +1,36 @@
+name: Specification proposal
+description: Propose protocol behavior or a reusable adapter contract.
+title: "[spec] "
+labels: [specification]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the interoperability or user problem without prescribing an implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Proposed observable behavior
+    validations:
+      required: true
+  - type: textarea
+    id: invariant
+    attributes:
+      label: Safety or interoperability invariant
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Accepted, rejected, and boundary examples
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility impact
+    validations:
+      required: true

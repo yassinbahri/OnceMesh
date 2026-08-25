@@ -1,0 +1,44 @@
+name: Bug report
+description: Report reproducible incorrect or unsafe OnceMesh behavior.
+title: "[bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include private inputs, credentials, signing seeds, or production artifacts.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed behavior
+      description: Include the exact error and the smallest safe reproduction.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Link the relevant specification section when possible.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: OnceMesh version or commit
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, adapter and dependency versions.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed secrets and private workload content.
+          required: true
+        - label: This is not an undisclosed vulnerability report.
+          required: true
