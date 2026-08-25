@@ -14,3 +14,8 @@ are interpreted as described by RFC 2119 and RFC 8174.
 - Storage and transport are replaceable.
 - Trust, freshness, and identity are separate decisions.
 - Private information is never required in a public action description.
+
+## Supporting profiles
+
+- [`economic-evidence-v0.md`](economic-evidence-v0.md) defines measured,
+  projected, and illustrative savings claims and their required formulas.

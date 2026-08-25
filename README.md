@@ -16,10 +16,44 @@ reference implementation, not a claim of production validation. See the
 [`CHANGELOG.md`](CHANGELOG.md), [`SECURITY.md`](SECURITY.md), and
 [`docs/release.md`](docs/release.md) before deployment.
 
+## How it works
+
+```mermaid
+flowchart LR
+    A[Agent or workflow] --> B[Exact action identity]
+    B --> C[Permitted cache tiers]
+    C --> D{Fresh, trusted, authorized<br/>and integrity-valid?}
+    D -- Yes --> E[Return exact stored result]
+    D -- No --> F[Execute original operation]
+    F --> G[Optional immutable publication]
+    G --> C
+```
+
+OnceMesh identifies computation by canonicalized inputs, implementation version,
+configuration, output schema, and declared variation—not by prompt similarity.
+A stored result is returned only after policy, authorization, freshness, receipt,
+and artifact checks pass. Otherwise the original operation executes normally.
+See the [architecture and trust diagrams](docs/architecture.md).
+
+## Measured results
+
+| Evidence | Result |
+| --- | --- |
+| Exact PDF/parser reuse | 10/10 eligible parser executions avoided in the controlled run; shadow evidence measured 183.02 s net avoidable parser time |
+| Exact substitution overhead | 20/20 hits in 0.49 s total lookup; signed receipts took 0.58 s |
+| SQLite/WAL index | 3.756× faster than JSON on Windows and 6.109× on Linux for the same 4,000-commit contention profile |
+| Extreme durability stress | 23,200 cross-process JSON-index operations across Windows and non-root Linux |
+| Hosted release validation | 183 Python tests, 77% branch coverage, 29 Node checks, 23 integration checks, and 20 Docker checks |
+
+The public workloads did not attach dollar prices, so the repository makes no
+claim of measured monetary savings. The [performance and economics guide](docs/performance-and-economics.md)
+provides durations, compute reductions, negative results, explicit formulas, and
+clearly labeled cost scenarios.
+
 ## Readiness
 
-The code-release candidate passes the local release gate and is ready for hosted
-CI and a controlled real-workload pilot. It is **not yet proven for unattended
+The code-release candidate passes local and hosted release gates and is ready
+for a controlled real-workload pilot. It is **not yet proven for unattended
 multi-organization production use**: that requires real organization evidence
 and independently administered federation. The exact accepted and blocked gates
 are recorded in [`docs/readiness.md`](docs/readiness.md); measured evidence is

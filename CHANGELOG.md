@@ -18,6 +18,8 @@ Initial public alpha release candidate.
 - Strict organization-pilot schemas and fail-closed aggregate evidence reporter.
 - Cross-platform CI, CodeQL, dependency auditing, coverage, repository hygiene,
   trusted publishing, and clean-distribution verification.
+- Architecture, trust-boundary, performance, test-duration, compute-saving, and
+  economic-model documentation backed by machine-readable hosted evidence.
 - Fixed conditional substitution reporting so the schema-shaped result is
   returned instead of falling through with no value.
 
