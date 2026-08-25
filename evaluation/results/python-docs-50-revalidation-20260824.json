@@ -1,0 +1,55 @@
+{
+  "spec_version": "oncemesh.revalidation-report/v0",
+  "evaluation_id": "python-docs-50-revalidation-20260824",
+  "workload": "python-docs-50",
+  "expected_evaluations": 100,
+  "summary": {
+    "evaluations": 100,
+    "candidate_hits": 100,
+    "candidate_hit_rate": 1.0,
+    "verified_matches": 100,
+    "verified_match_rate": 1.0,
+    "candidate_match_rate": 1.0,
+    "candidate_mismatches": 0,
+    "rejections": {},
+    "lookup_duration_ms": 1259.8211000440642,
+    "execution_duration_ms": 14487.0286002988,
+    "validation_duration_ms": 12880.887600360438,
+    "verified_time_saved_ms": 2227.866700384766,
+    "verified_cost_saved": 0.0,
+    "reusable_bytes": 11936650,
+    "conditional_attempts": 100,
+    "conditional_not_modified": 100,
+    "validations_recorded": 100,
+    "by_operation": {
+      "http.fetch": {
+        "evaluations": 100,
+        "candidate_hits": 100,
+        "candidate_hit_rate": 1.0,
+        "verified_matches": 100,
+        "verified_match_rate": 1.0,
+        "candidate_match_rate": 1.0,
+        "candidate_mismatches": 0,
+        "rejections": {},
+        "lookup_duration_ms": 1259.8211000440642,
+        "execution_duration_ms": 14487.0286002988,
+        "validation_duration_ms": 12880.887600360438,
+        "verified_time_saved_ms": 2227.866700384766,
+        "verified_cost_saved": 0.0,
+        "reusable_bytes": 11936650,
+        "conditional_attempts": 100,
+        "conditional_not_modified": 100,
+        "validations_recorded": 100
+      }
+    }
+  },
+  "checks": {
+    "evaluation_complete": true,
+    "all_candidates_found": true,
+    "all_candidates_compared": true,
+    "zero_mismatches": true,
+    "conditional_validation_observed": true,
+    "every_304_recorded": true
+  },
+  "promotion_review_ready": true
+}

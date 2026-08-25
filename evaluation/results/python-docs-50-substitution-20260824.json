@@ -1,0 +1,62 @@
+{
+  "spec_version": "oncemesh.substitution-report/v0",
+  "evaluation_id": "python-docs-50-substitution-20260824",
+  "workload": "python-docs-50",
+  "expected_evaluations": 100,
+  "summary": {
+    "evaluations": 100,
+    "candidate_hits": 100,
+    "candidate_hit_rate": 1.0,
+    "verified_matches": 0,
+    "verified_match_rate": 0.0,
+    "candidate_match_rate": 0.0,
+    "candidate_mismatches": 0,
+    "rejections": {},
+    "lookup_duration_ms": 4628.683199582156,
+    "execution_duration_ms": 0.0,
+    "validation_duration_ms": 15002.76330037741,
+    "verified_time_saved_ms": 0.0,
+    "estimated_substitution_time_saved_ms": 0.0,
+    "verified_cost_saved": 0.0,
+    "reusable_bytes": 11936650,
+    "conditional_attempts": 100,
+    "conditional_not_modified": 100,
+    "validations_recorded": 100,
+    "substitutions": 100,
+    "kill_switch_activations": 0,
+    "decision_reasons": {"conditional_304": 100},
+    "by_operation": {
+      "http.fetch": {
+        "evaluations": 100,
+        "candidate_hits": 100,
+        "candidate_hit_rate": 1.0,
+        "verified_matches": 0,
+        "verified_match_rate": 0.0,
+        "candidate_match_rate": 0.0,
+        "candidate_mismatches": 0,
+        "rejections": {},
+        "lookup_duration_ms": 4628.683199582156,
+        "execution_duration_ms": 0.0,
+        "validation_duration_ms": 15002.76330037741,
+        "verified_time_saved_ms": 0.0,
+        "estimated_substitution_time_saved_ms": 0.0,
+        "verified_cost_saved": 0.0,
+        "reusable_bytes": 11936650,
+        "conditional_attempts": 100,
+        "conditional_not_modified": 100,
+        "validations_recorded": 100,
+        "substitutions": 100,
+        "kill_switch_activations": 0,
+        "decision_reasons": {"conditional_304": 100}
+      }
+    }
+  },
+  "checks": {
+    "evaluation_complete": true,
+    "every_operation_substituted": true,
+    "every_source_not_modified": true,
+    "no_kill_switch_activation": true,
+    "only_conditional_304_decisions": true
+  },
+  "promotion_review_ready": true
+}

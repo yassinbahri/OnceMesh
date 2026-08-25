@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "elapsed_seconds": 38.083,
+      "generation": 3999,
+      "name": "json_same_key_4000",
+      "operations": 4000,
+      "passed": true,
+      "worker_seconds": 38.082
+    },
+    {
+      "elapsed_seconds": 6.255,
+      "generation": 3999,
+      "name": "sqlite_same_key_4000",
+      "operations": 4000,
+      "passed": true,
+      "worker_seconds": 6.234
+    },
+    {
+      "minimum_speedup": 1.25,
+      "name": "sqlite_materially_outperforms_json",
+      "passed": true,
+      "speedup": 6.109
+    },
+    {
+      "active_keys": 2,
+      "elapsed_seconds": 9.023,
+      "integrity_check": "ok",
+      "name": "sqlite_mixed_16000",
+      "operations": 16000,
+      "passed": true,
+      "processes": 16,
+      "worker_seconds": 9.006
+    },
+    {
+      "elapsed_seconds": 0.095,
+      "name": "wal_reader_during_writer",
+      "passed": true,
+      "prior_revision_visible": true,
+      "reader_seconds": 0.000747
+    },
+    {
+      "elapsed_seconds": 1.96,
+      "exit_code": 73,
+      "integrity_check": "ok",
+      "name": "sqlite_forced_exit_recovery",
+      "orphan_unreachable": true,
+      "passed": true,
+      "prior_commit_preserved": true
+    }
+  ],
+  "comparison_operations_per_backend": 4000,
+  "generated_at": "2026-08-24T21:56:11.886510Z",
+  "passed": true,
+  "platform": "linux",
+  "profile": "extreme",
+  "python": "3.12.14",
+  "schema": "oncemesh.sqlite-index-stress-report/v0",
+  "sqlite_operations": 20000
+}

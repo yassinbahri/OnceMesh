@@ -1,0 +1,47 @@
+{
+  "spec_version": "oncemesh.federation-http-pilot-report/v0",
+  "date": "2026-08-24",
+  "topology": {
+    "origin": "org-a reference instance",
+    "receiver": "org-b reference instance",
+    "transport": "HTTP over IPv4 loopback",
+    "tls": false,
+    "insecure_loopback_override": true
+  },
+  "sample": {
+    "operation": "example.echo/1",
+    "classification": "public",
+    "action_digest": "sha256:5bfa67b027ac13097d6763ba80bb1746b14de6cd32df3891ac60ae98947a2250",
+    "result_digest": "sha256:e67a8e80753aca9292af93f86594eb78edd6eb8f8b55261098229b4e90f598f7",
+    "artifact_digest": "sha256:f72eeaa287906ab5aa7af92ce3b2608f782a6518891cc8afb18cfa6c72b2d091",
+    "artifact_bytes": 15,
+    "digests_preserved": true
+  },
+  "checks": {
+    "configured_receiver_request_signature_verified": true,
+    "exact_method_and_path_binding_verified": true,
+    "request_timestamp_window_enforced": true,
+    "nonce_replay_rejected": true,
+    "bounded_nonce_capacity_fails_closed": true,
+    "unconfigured_receiver_rejected": true,
+    "availability_response_bounded": true,
+    "bundle_response_bounded": true,
+    "request_timeout_enforced": true,
+    "redirects_disabled": true,
+    "https_required_by_default": true,
+    "public_result_imported_over_loopback": true,
+    "origin_and_receiver_digests_equal": true
+  },
+  "conformance": {
+    "python_http_transport_tests": 9,
+    "node_shared_checks": 29,
+    "request_signature_vector_shared": true
+  },
+  "passed": true,
+  "limitations": [
+    "Both instances ran on one machine and are not separately operated organizations.",
+    "Plain HTTP was explicitly enabled for loopback; a real deployment must use managed TLS.",
+    "Replay state is process-local and must be shared by multi-process deployments.",
+    "The reference server does not provide production rate limiting or denial-of-service protection."
+  ]
+}

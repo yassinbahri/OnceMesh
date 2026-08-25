@@ -1,0 +1,55 @@
+{
+  "checks": [
+    {
+      "detail": {
+        "executions": 1
+      },
+      "name": "python_sync_one_execution",
+      "passed": true
+    },
+    {
+      "detail": {
+        "executions": 1
+      },
+      "name": "python_async_one_execution",
+      "passed": true
+    },
+    {
+      "detail": {
+        "executions": 1
+      },
+      "name": "falsey_value_is_a_hit",
+      "passed": true
+    },
+    {
+      "detail": {
+        "manifest_count": 3
+      },
+      "name": "failed_operation_not_published",
+      "passed": true
+    },
+    {
+      "detail": "construction failed closed",
+      "name": "serializer_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "detail": {
+        "executions": 1
+      },
+      "name": "langgraph_uses_shared_sdk",
+      "passed": true
+    }
+  ],
+  "environment_kind": "local-real-runtime",
+  "frameworks": {
+    "langgraph": "1.2.11"
+  },
+  "generated_at": "2026-08-25T07:06:31.505758Z",
+  "integrations": [
+    "native-python",
+    "langgraph"
+  ],
+  "passed": true,
+  "spec_version": "oncemesh.evaluation/runtime-adapters-v0"
+}

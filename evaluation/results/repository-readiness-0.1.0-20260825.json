@@ -1,0 +1,59 @@
+{
+  "spec_version": "oncemesh.repository-readiness-report/v0",
+  "version": "0.1.0",
+  "generated_at": "2026-08-25T07:17:35Z",
+  "decision": {
+    "alpha_code_release": "accepted_locally",
+    "controlled_real_workload_pilot": "prepared_not_executed",
+    "unattended_multi_organization_production": "blocked_external_evidence"
+  },
+  "quality": {
+    "python_tests": 183,
+    "full_environment_passed": true,
+    "dependency_light_passed": true,
+    "dependency_light_expected_skips": 9,
+    "branch_coverage_percent": 77,
+    "branch_coverage_floor_percent": 75,
+    "static_analysis_passed": true
+  },
+  "interoperability_and_adapters": {
+    "node_checks": 29,
+    "adapter_platform_checks": 9,
+    "runtime_adapter_checks": 6,
+    "runtime_bridge_checks": 8,
+    "passed": true
+  },
+  "security_and_hygiene": {
+    "repository_files_scanned": 272,
+    "json_and_jsonl_documents_parsed": 81,
+    "yaml_documents_parsed": 8,
+    "local_documentation_links_resolved": 35,
+    "dependency_packages_audited": 123,
+    "known_dependency_vulnerabilities": 0,
+    "private_key_or_secret_path_findings": 0,
+    "docker_isolation_checks": 20,
+    "passed": true
+  },
+  "distribution": {
+    "clean_install_passed": true,
+    "metadata_passed": true,
+    "forbidden_content_scan_passed": true,
+    "installed_cli_count": 3,
+    "wheel_sha256": "5f0ca1baeb3bd7ad528142d3694747deb61927537d1990dcb4d7dfd1501b4eb9",
+    "source_sha256": "6825415cfab9ee45814dfc708b05dc62439bfe6f4a66c4d4995f024ee33cce6f"
+  },
+  "defects_found_during_audit": [
+    {
+      "component": "conditional substitution report",
+      "failure": "computed report fell through without returning a document",
+      "resolution": "restored schema-shaped return and added direct regression coverage",
+      "status": "fixed_and_verified"
+    }
+  ],
+  "external_requirements": [
+    "Hosted CI must reproduce the local gates from the committed repository.",
+    "A real workload and accountable organization roles must produce the organization-pilot evidence.",
+    "Independent federation operators must control separate infrastructure, governance, and keys.",
+    "Deployment owners must provide monitoring, backups, retention, incident response, and workload-specific capacity evidence."
+  ]
+}

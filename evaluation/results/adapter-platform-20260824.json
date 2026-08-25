@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "detail": [
+        "python",
+        "langgraph",
+        "langchain",
+        "llamaindex"
+      ],
+      "name": "four_dependency_light_descriptors",
+      "passed": true
+    },
+    {
+      "detail": {
+        "executions": 1
+      },
+      "name": "native_python_shared_sdk",
+      "passed": true
+    },
+    {
+      "detail": {
+        "exact": 5,
+        "indexed": 7
+      },
+      "name": "shared_conformance_profiles",
+      "passed": true
+    },
+    {
+      "detail": [
+        "first",
+        "first",
+        "second"
+      ],
+      "name": "real_langchain_model_cache",
+      "passed": true
+    },
+    {
+      "detail": {
+        "executions": 1
+      },
+      "name": "real_langgraph_node_cache",
+      "passed": true
+    },
+    {
+      "detail": "round trip and clear",
+      "name": "real_llamaindex_ingestion_cache",
+      "passed": true
+    },
+    {
+      "detail": {
+        "generation": 1
+      },
+      "name": "filesystem_index_reopen_and_delete_generation",
+      "passed": true
+    },
+    {
+      "detail": {
+        "active": [
+          "key"
+        ],
+        "imported": 1,
+        "integrity": "ok"
+      },
+      "name": "sqlite_wal_migration_reopen_and_integrity",
+      "passed": true
+    },
+    {
+      "detail": "no direct store or reuse calls",
+      "name": "framework_modules_do_not_own_policy",
+      "passed": true
+    }
+  ],
+  "environment_kind": "local-real-frameworks",
+  "frameworks": {
+    "langchain-core": "1.6.0",
+    "langgraph": "1.2.11",
+    "llama-index-core": "0.14.24"
+  },
+  "generated_at": "2026-08-25T07:06:34.897456Z",
+  "passed": true,
+  "spec_version": "oncemesh.evaluation/adapter-platform-v0"
+}

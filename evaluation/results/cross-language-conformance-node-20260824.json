@@ -1,0 +1,15 @@
+{
+  "spec_version": "oncemesh.cross-language-report/v0",
+  "implementation": "node/v22.20.0",
+  "checks": 21,
+  "passed": true,
+  "coverage": {
+    "generic_canonical_json": 2,
+    "action_canonical_json_and_digests": 8,
+    "source_validation_canonical_json_and_digest": 2,
+    "negative_canonicalization": 4,
+    "receipt_digest_and_key_id": 2,
+    "receipt_signature_and_tamper_rejection": 2,
+    "authorization_partition_hmac": 1
+  }
+}

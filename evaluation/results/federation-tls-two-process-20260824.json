@@ -1,0 +1,40 @@
+{
+  "spec_version": "oncemesh.federation-pilot-harness-report/v0",
+  "date": "2026-08-24",
+  "topology": {
+    "processes": 2,
+    "machine_count": 1,
+    "operator_count": 1,
+    "transport": "TLS over IPv4 loopback",
+    "certificate": "ephemeral self-signed test CA",
+    "private_seeds_injected_separately": true
+  },
+  "checks": {
+    "origin_manifest_strictly_validated": true,
+    "receiver_manifest_strictly_validated": true,
+    "private_seeds_absent_from_manifests": true,
+    "private_seeds_absent_from_evidence": true,
+    "non_public_publication_stops_startup": true,
+    "public_key_identifier_binding_enforced": true,
+    "https_required": true,
+    "certificate_authority_verified": true,
+    "untrusted_certificate_rejected": true,
+    "origin_and_receiver_use_separate_processes": true,
+    "signed_receiver_requests_verified": true,
+    "per_peer_request_rate_bounded": true,
+    "concurrent_requests_bounded": true,
+    "result_and_artifact_digests_preserved": true,
+    "evidence_path_is_write_once": true
+  },
+  "focused_tests": {
+    "http_transport": 11,
+    "pilot_configuration_and_processes": 4
+  },
+  "passed": true,
+  "limitations": [
+    "Both processes ran on the same machine under one operator.",
+    "The certificate was an ephemeral self-signed test CA, not a managed production certificate.",
+    "Rate-limit and replay state are local to one origin process.",
+    "The run does not satisfy the independently administered M3 acceptance gate."
+  ]
+}

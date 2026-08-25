@@ -1,0 +1,43 @@
+{
+  "spec_version": "oncemesh.federation-experiment-report/v0",
+  "date": "2026-08-24",
+  "transport": "in-process reference peer",
+  "origin_peer": "org-a",
+  "receiving_peer": "org-b",
+  "sample": {
+    "operation": "example.echo/1",
+    "classification": "public",
+    "action_digest": "sha256:324447ee7394f0547c3718242e59487fce81ce8f4d07f14420a97a67f74c0d50",
+    "result_digest": "sha256:6a5547158d5411cbfe7311de49e1ad8f631c5e46734c2c41439563be9f95a765",
+    "artifact_digest": "sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+    "artifact_bytes": 5,
+    "digests_preserved": true
+  },
+  "checks": {
+    "explicit_peer_identity_and_key": true,
+    "signed_availability_verified": true,
+    "independent_receipt_trust_verified": true,
+    "public_classification_required": true,
+    "operation_allowlist_enforced": true,
+    "producer_allowlist_enforced": true,
+    "entry_artifact_and_transfer_limits_enforced": true,
+    "tampered_availability_rejected": true,
+    "tampered_artifact_rejected": true,
+    "old_snapshot_replay_rejected": true,
+    "future_snapshot_rejected": true,
+    "withdrawal_stops_new_fetches": true,
+    "receiver_retention_prunes_import": true,
+    "imported_result_cannot_be_reexported": true
+  },
+  "conformance": {
+    "python_federation_tests": 10,
+    "node_shared_checks": 25,
+    "availability_signature_vector_shared": true
+  },
+  "passed": true,
+  "limitations": [
+    "The peers are independently configured reference instances, not separately operated organizations.",
+    "The transport is in-process and does not establish network authentication, quotas, or denial-of-service resistance.",
+    "Withdrawal prevents future distribution but cannot remotely delete bytes already transferred."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "spec_version": "oncemesh.federation-operator-handoff-report/v0",
+  "date": "2026-08-24",
+  "checks": {
+    "ed25519_seed_uses_operating_system_randomness": true,
+    "private_seed_never_printed": true,
+    "private_and_public_key_outputs_are_write_once": true,
+    "owner_only_private_mode_requested": true,
+    "public_identity_key_binding_validated": true,
+    "publication_requires_public_classification": true,
+    "publication_requires_review_confirmation": true,
+    "action_result_and_receipt_binding_verified": true,
+    "every_artifact_digest_and_size_verified": true,
+    "publication_output_is_write_once": true,
+    "origin_preflight_makes_no_peer_request": true,
+    "receiver_preflight_makes_no_peer_request": true,
+    "preflight_reports_exclude_private_seeds": true,
+    "origin_and_receiver_templates_provided": true,
+    "operator_handoff_runbook_provided": true
+  },
+  "verification": {
+    "python_tests_per_environment": 121,
+    "python_environments": 2,
+    "node_shared_checks": 29,
+    "operator_schema_documents": 6,
+    "passed": true
+  },
+  "limitations": [
+    "Portable file modes do not replace native Windows or shared-filesystem ACL review.",
+    "Generated seed files are bootstrap material and should be moved into local secret custody.",
+    "Offline preflight cannot prove remote availability, network reachability, or another organization's controls.",
+    "The actual M3 acceptance run still requires two independent operators."
+  ]
+}

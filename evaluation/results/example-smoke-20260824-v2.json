@@ -1,0 +1,61 @@
+{
+  "spec_version": "oncemesh.evaluation-report/v0",
+  "evaluation_id": "example-smoke-20260824-v2",
+  "workload": "example-smoke",
+  "expected_evaluations": 4,
+  "summary": {
+    "evaluations": 4,
+    "candidate_hits": 2,
+    "candidate_hit_rate": 0.5,
+    "verified_matches": 2,
+    "verified_match_rate": 0.5,
+    "candidate_match_rate": 1.0,
+    "candidate_mismatches": 0,
+    "rejections": {},
+    "lookup_duration_ms": 17.693899979349226,
+    "execution_duration_ms": 273.4612000058405,
+    "verified_time_saved_ms": 90.41590004926547,
+    "verified_cost_saved": 0.0,
+    "reusable_bytes": 879,
+    "by_operation": {
+      "document.html-to-markdown": {
+        "evaluations": 2,
+        "candidate_hits": 1,
+        "candidate_hit_rate": 0.5,
+        "verified_matches": 1,
+        "verified_match_rate": 0.5,
+        "candidate_match_rate": 1.0,
+        "candidate_mismatches": 0,
+        "rejections": {},
+        "lookup_duration_ms": 5.55460003670305,
+        "execution_duration_ms": 0.623999978415668,
+        "verified_time_saved_ms": 0.0,
+        "verified_cost_saved": 0.0,
+        "reusable_bytes": 184
+      },
+      "http.fetch": {
+        "evaluations": 2,
+        "candidate_hits": 1,
+        "candidate_hit_rate": 0.5,
+        "verified_matches": 1,
+        "verified_match_rate": 0.5,
+        "candidate_match_rate": 1.0,
+        "candidate_mismatches": 0,
+        "rejections": {},
+        "lookup_duration_ms": 12.139299942646176,
+        "execution_duration_ms": 272.83720002742484,
+        "verified_time_saved_ms": 90.41590004926547,
+        "verified_cost_saved": 0.0,
+        "reusable_bytes": 695
+      }
+    }
+  },
+  "checks": {
+    "evaluation_complete": true,
+    "minimum_candidate_hits": true,
+    "maximum_mismatches": true,
+    "minimum_candidate_match_rate": true,
+    "all_hits_compared": true
+  },
+  "promotion_review_ready": true
+}

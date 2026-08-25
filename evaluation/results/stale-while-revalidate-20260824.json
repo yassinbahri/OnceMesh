@@ -1,0 +1,31 @@
+{
+  "spec_version": "oncemesh.stale-while-revalidate-evaluation/v1",
+  "date": "2026-08-24",
+  "checks": {
+    "stale_return_precedes_network_refresh": true,
+    "background_304_records_validation": true,
+    "background_200_publishes_changed_result": true,
+    "background_failure_does_not_extend_freshness": true,
+    "concurrent_refreshes_are_coalesced": true,
+    "single_flight_key_released_after_completion": true,
+    "latest_trusted_validation_controls_stale_age": true,
+    "fresh_candidate_skips_background_work": true,
+    "stale_window_expiry_executes_synchronously": true,
+    "missing_scheduler_executes_synchronously": true,
+    "failed_scheduler_executes_synchronously": true,
+    "untrusted_refresh_producer_executes_synchronously": true,
+    "metrics_sinks_and_memory_store_are_thread_safe": true
+  },
+  "observed_audit_reasons": [
+    "stale_while_revalidate",
+    "background_not_modified",
+    "background_source_changed",
+    "background_failed",
+    "fresh_hit",
+    "stale_window_exceeded",
+    "revalidation_scheduler_missing",
+    "revalidation_schedule_failed",
+    "refresh_producer_untrusted"
+  ],
+  "passed": true
+}

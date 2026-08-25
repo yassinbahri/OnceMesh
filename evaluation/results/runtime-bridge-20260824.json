@@ -1,0 +1,56 @@
+{
+  "checks": [
+    {
+      "detail": "typed bytes",
+      "name": "framework_neutral_round_trip",
+      "passed": true
+    },
+    {
+      "detail": "tenant-b cannot observe tenant-a",
+      "name": "cross_partition_miss",
+      "passed": true
+    },
+    {
+      "detail": "generic runtime values stay private",
+      "name": "public_federation_rejected",
+      "passed": true
+    },
+    {
+      "detail": {
+        "node_executions": 1
+      },
+      "name": "langgraph_sync_exact_reuse",
+      "passed": true
+    },
+    {
+      "detail": {
+        "node_executions": 1
+      },
+      "name": "langgraph_async_exact_reuse",
+      "passed": true
+    },
+    {
+      "detail": "stored value retained",
+      "name": "live_disable_miss",
+      "passed": true
+    },
+    {
+      "detail": "epoch rotated",
+      "name": "namespace_clear_miss",
+      "passed": true
+    },
+    {
+      "detail": "no raw tenant or payload in manifests",
+      "name": "manifest_secret_minimization",
+      "passed": true
+    }
+  ],
+  "core_contract": "framework-neutral",
+  "environment_kind": "local-real-framework",
+  "frameworks": {
+    "langgraph": "1.2.11"
+  },
+  "generated_at": "2026-08-25T07:06:33.803239Z",
+  "passed": true,
+  "spec_version": "oncemesh.evaluation/runtime-bridge-v0"
+}

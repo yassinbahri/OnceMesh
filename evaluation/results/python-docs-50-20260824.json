@@ -1,0 +1,61 @@
+{
+  "spec_version": "oncemesh.evaluation-report/v0",
+  "evaluation_id": "python-docs-50-20260824",
+  "workload": "python-docs-50",
+  "expected_evaluations": 200,
+  "summary": {
+    "evaluations": 200,
+    "candidate_hits": 100,
+    "candidate_hit_rate": 0.5,
+    "verified_matches": 100,
+    "verified_match_rate": 0.5,
+    "candidate_match_rate": 1.0,
+    "candidate_mismatches": 0,
+    "rejections": {},
+    "lookup_duration_ms": 4558.361499686725,
+    "execution_duration_ms": 40059.013000456616,
+    "verified_time_saved_ms": 13382.47210031841,
+    "verified_cost_saved": 0.0,
+    "reusable_bytes": 7638485,
+    "by_operation": {
+      "document.html-to-markdown": {
+        "evaluations": 100,
+        "candidate_hits": 50,
+        "candidate_hit_rate": 0.5,
+        "verified_matches": 50,
+        "verified_match_rate": 0.5,
+        "candidate_match_rate": 1.0,
+        "candidate_mismatches": 0,
+        "rejections": {},
+        "lookup_duration_ms": 1374.589999904856,
+        "execution_duration_ms": 13595.798700116575,
+        "verified_time_saved_ms": 6503.730699943844,
+        "verified_cost_saved": 0.0,
+        "reusable_bytes": 1670160
+      },
+      "http.fetch": {
+        "evaluations": 100,
+        "candidate_hits": 50,
+        "candidate_hit_rate": 0.5,
+        "verified_matches": 50,
+        "verified_match_rate": 0.5,
+        "candidate_match_rate": 1.0,
+        "candidate_mismatches": 0,
+        "rejections": {},
+        "lookup_duration_ms": 3183.7714997818694,
+        "execution_duration_ms": 26463.21430034004,
+        "verified_time_saved_ms": 6878.741400374565,
+        "verified_cost_saved": 0.0,
+        "reusable_bytes": 5968325
+      }
+    }
+  },
+  "checks": {
+    "evaluation_complete": true,
+    "minimum_candidate_hits": true,
+    "maximum_mismatches": true,
+    "minimum_candidate_match_rate": true,
+    "all_hits_compared": true
+  },
+  "promotion_review_ready": true
+}

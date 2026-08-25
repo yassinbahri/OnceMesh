@@ -1,0 +1,26 @@
+{
+  "spec_version": "oncemesh.authorization-partition-evaluation/v1",
+  "date": "2026-08-24",
+  "checks": {
+    "scope_order_normalized": true,
+    "tenant_changes_identity": true,
+    "scope_changes_identity": true,
+    "subject_changes_identity": true,
+    "partition_key_changes_identity": true,
+    "pdf_action_digest_partitioned": true,
+    "matching_private_partition_substitutes": true,
+    "missing_caller_partition_executes": true,
+    "mismatching_caller_partition_executes": true,
+    "public_policy_forbids_private_action": true,
+    "cross_tenant_candidate_is_a_miss": true,
+    "http_policy_cannot_ignore_partition": true,
+    "node_reproduces_hmac_vector": true
+  },
+  "audit_reasons": [
+    "authorization_partition_forbidden",
+    "authorization_partition_missing",
+    "authorization_partition_mismatch",
+    "candidate_missing"
+  ],
+  "passed": true
+}

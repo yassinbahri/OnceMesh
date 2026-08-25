@@ -1,0 +1,78 @@
+{
+  "spec_version": "oncemesh.release-candidate-report/v0",
+  "version": "0.1.0",
+  "generated_at": "2026-08-25T07:17:35Z",
+  "environment": "Windows host with Docker Desktop Linux containers",
+  "passed": true,
+  "checks": {
+    "source_and_public_version_match": true,
+    "release_tag_contract_accepts_v0_1_0": true,
+    "wheel_metadata_passes": true,
+    "source_metadata_passes": true,
+    "distribution_secret_scan_passes": true,
+    "clean_wheel_install_passes": true,
+    "installed_public_api_smoke_passes": true,
+    "installed_cli_help_passes": true,
+    "pilot_schemas_match_runtime_objects": true,
+    "workflow_yaml_parses": true,
+    "repository_hygiene_passes": true,
+    "static_analysis_passes": true,
+    "branch_coverage_gate_passes": true,
+    "all_extras_dependency_audit_passes": true,
+    "full_python_suite_passes": true,
+    "dependency_light_python_suite_passes": true,
+    "node_conformance_passes": true,
+    "adapter_platform_passes": true,
+    "runtime_adapter_passes": true,
+    "runtime_bridge_passes": true,
+    "docker_federation_rehearsal_passes": true,
+    "synthetic_pilot_cannot_promote": true
+  },
+  "counts": {
+    "python_tests": 183,
+    "dependency_light_expected_skips": 9,
+    "branch_coverage_percent": 77,
+    "dependency_audit_packages": 123,
+    "repository_files_scanned": 272,
+    "json_and_jsonl_documents": 81,
+    "yaml_documents": 8,
+    "local_documentation_links": 35,
+    "node_checks": 29,
+    "adapter_platform_checks": 9,
+    "runtime_adapter_checks": 6,
+    "runtime_bridge_checks": 8,
+    "docker_federation_checks": 20,
+    "pilot_schemas": 3
+  },
+  "artifacts": [
+    {
+      "name": "oncemesh-0.1.0-py3-none-any.whl",
+      "bytes": 93062,
+      "sha256": "5f0ca1baeb3bd7ad528142d3694747deb61927537d1990dcb4d7dfd1501b4eb9"
+    },
+    {
+      "name": "oncemesh-0.1.0.tar.gz",
+      "bytes": 190220,
+      "sha256": "6825415cfab9ee45814dfc708b05dc62439bfe6f4a66c4d4995f024ee33cce6f"
+    }
+  ],
+  "related_evidence": [
+    "evaluation/results/federation-simulated-acceptance-20260825-repository-regression.json",
+    "evaluation/results/adapter-platform-20260824.json",
+    "evaluation/results/runtime-adapters-20260824.json",
+    "evaluation/results/runtime-bridge-20260824.json",
+    "evaluation/results/sqlite-index-stress-20260824.json",
+    "evaluation/results/sqlite-index-stress-linux-20260824.json"
+  ],
+  "external_gates": {
+    "package_registry_publication": false,
+    "hosted_ci_execution": false,
+    "real_organization_pilot": false,
+    "independent_federation_pilot": false
+  },
+  "limitations": [
+    "The release workflow is defined locally but cannot run until the project is hosted in a repository with trusted-publisher authority.",
+    "The organization pilot requires aggregate evidence from a real workload and accountable organization roles.",
+    "The federation pilot requires independent operators, infrastructure, governance, and key custody; the Docker report is simulated only."
+  ]
+}

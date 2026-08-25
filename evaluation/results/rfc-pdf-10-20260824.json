@@ -1,0 +1,34 @@
+{
+  "checks": {
+    "all_hits_compared": true,
+    "evaluation_complete": true,
+    "maximum_mismatches": true,
+    "minimum_candidate_hits": true,
+    "minimum_candidate_match_rate": true
+  },
+  "evaluation_id": "rfc-pdf-10-20260824",
+  "expected_evaluations": 40,
+  "promotion_review_ready": true,
+  "spec_version": "oncemesh.evaluation-report/v0",
+  "summary": {
+    "candidate_hits": 20,
+    "candidate_match_rate": 1.0,
+    "candidate_mismatches": 0,
+    "evaluations": 40,
+    "execution_duration_ms": 349598.34039997077,
+    "lookup_duration_ms": 1231.198399909772,
+    "reusable_bytes": 15621517,
+    "verified_matches": 20,
+    "verified_time_saved_ms": 188933.86659986572,
+    "pdf_parse": {
+      "candidate_hits": 10,
+      "candidate_mismatches": 0,
+      "execution_duration_ms": 327758.0711999908,
+      "lookup_duration_ms": 556.3312999438494,
+      "reusable_bytes": 5524126,
+      "verified_matches": 10,
+      "verified_time_saved_ms": 183019.43039987236
+    }
+  },
+  "workload": "rfc-pdf-10"
+}

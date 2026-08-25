@@ -1,0 +1,24 @@
+{
+  "checks": {
+    "evaluation_complete": true,
+    "every_operation_substituted": true,
+    "no_kill_switch_activation": true,
+    "only_exact_fresh_hit_decisions": true
+  },
+  "evaluation_id": "rfc-pdf-10-substitution-20260824",
+  "expected_evaluations": 20,
+  "promotion_review_ready": true,
+  "spec_version": "oncemesh.exact-substitution-report/v0",
+  "summary": {
+    "candidate_hit_rate": 1.0,
+    "candidate_hits": 20,
+    "decision_reasons": {"exact_fresh_hit": 20},
+    "evaluations": 20,
+    "execution_duration_ms": 0.0,
+    "kill_switch_activations": 0,
+    "lookup_duration_ms": 491.46750004729256,
+    "reusable_bytes": 11048252,
+    "substitutions": 20
+  },
+  "workload": "rfc-pdf-10"
+}

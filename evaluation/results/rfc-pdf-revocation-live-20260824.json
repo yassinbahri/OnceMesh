@@ -1,0 +1,19 @@
+{
+  "checks": {"evaluation_complete": true, "every_operation_substituted": false, "no_kill_switch_activation": true, "only_exact_fresh_hit_decisions": false},
+  "evaluation_id": "rfc-pdf-revocation-live-20260824",
+  "expected_evaluations": 1,
+  "promotion_review_ready": false,
+  "spec_version": "oncemesh.exact-substitution-report/v0",
+  "summary": {
+    "candidate_hit_rate": 1.0,
+    "candidate_hits": 1,
+    "candidate_match_rate": 1.0,
+    "decision_reasons": {"receipt_key_revoked": 1},
+    "evaluations": 1,
+    "execution_duration_ms": 310.8236000407487,
+    "reusable_bytes": 0,
+    "substitutions": 0,
+    "verified_matches": 1
+  },
+  "workload": "rfc-pdf-revocation-one"
+}

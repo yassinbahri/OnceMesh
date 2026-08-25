@@ -1,0 +1,57 @@
+{
+  "checks": [
+    {
+      "elapsed_seconds": 34.641,
+      "epochs": [
+        800,
+        800
+      ],
+      "name": "exact_cross_process_epoch_rotations",
+      "operations": 1600,
+      "passed": true,
+      "processes": 8,
+      "worker_seconds": 34.634
+    },
+    {
+      "elapsed_seconds": 64.753,
+      "generation": 999,
+      "name": "same_key_transaction_contention",
+      "operations": 1000,
+      "passed": true,
+      "processes": 8,
+      "worker_seconds": 64.591
+    },
+    {
+      "active_keys": 0,
+      "elapsed_seconds": 247.851,
+      "name": "mixed_overwrite_read_delete_clear",
+      "operations": 9000,
+      "parsed_json_files": 1785,
+      "passed": true,
+      "processes": 12,
+      "worker_seconds": 224.954
+    },
+    {
+      "elapsed_seconds": 0.764,
+      "exit_code": 73,
+      "name": "forced_exit_between_publish_and_commit",
+      "orphan_unreachable": true,
+      "passed": true,
+      "post_crash_write": true
+    },
+    {
+      "elapsed_seconds": 1.125,
+      "name": "bounded_lock_timeout_and_recovery",
+      "passed": true,
+      "reacquired": true,
+      "timeout_observed": true
+    }
+  ],
+  "generated_at": "2026-08-24T17:02:12.084798Z",
+  "passed": true,
+  "platform": "win32",
+  "profile": "extreme",
+  "python": "3.12.13",
+  "schema": "oncemesh.adapter-stress-report/v0",
+  "total_operations": 11600
+}
