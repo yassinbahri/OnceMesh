@@ -46,6 +46,7 @@ dev = [
 oncemesh-eval = "oncemesh.evaluation:main"
 oncemesh-federation = "oncemesh.federation_pilot:main"
 oncemesh-pilot = "oncemesh.organization_pilot:main"
+oncemesh-discover = "oncemesh.discovery:main"
 
 
 [tool.setuptools]

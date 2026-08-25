@@ -99,6 +99,17 @@ from .integrations.registry import (
     get_adapter,
     load_adapter_class,
 )
+from .discovery import (
+    MAX_DIRECTORY_BYTES,
+    MESH_STATUSES,
+    PUBLIC_DIRECTORY_URL,
+    PUBLIC_DIRECTORY_VERSION,
+    fetch_public_mesh_directory,
+    load_public_mesh_directory,
+    parse_public_mesh_directory,
+    search_public_meshes,
+    validate_public_mesh_directory,
+)
 
 __all__ = [
     "__version__",
@@ -201,4 +212,13 @@ __all__ = [
     "get_adapter",
     "discover_adapters",
     "load_adapter_class",
+    "MAX_DIRECTORY_BYTES",
+    "MESH_STATUSES",
+    "PUBLIC_DIRECTORY_URL",
+    "PUBLIC_DIRECTORY_VERSION",
+    "fetch_public_mesh_directory",
+    "load_public_mesh_directory",
+    "parse_public_mesh_directory",
+    "search_public_meshes",
+    "validate_public_mesh_directory",
 ]

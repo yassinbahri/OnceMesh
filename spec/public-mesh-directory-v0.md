@@ -87,7 +87,10 @@ Statistics are optional and have exactly:
 - `availability_ratio`, a canonical six-decimal string from `0.000000` through
   `1.000000`; and
 - `latency_ms.p50` and `latency_ms.p95`, non-negative decimal strings with p95
-  greater than or equal to p50.
+greater than or equal to p50.
+
+`availability_ratio` equals successful requests divided by sample size, rounded
+to six decimal places with decimal round-half-up.
 
 The window end must be after its start, `observed_at` must not precede the
 window, successful requests must not exceed sample size, and an `observed`
@@ -110,11 +113,12 @@ history preserves the disposition. Security reports follow `SECURITY.md`.
 
 ## 7. Network safety
 
-The reference discovery client reads the reviewed local document by default.
-Fetching a newer snapshot is explicit and limited to the canonical HTTPS
-directory URL. Reads use no cookies, authorization headers, proxy credentials,
-or ambient application credentials; redirects, time, and response bytes are
-bounded; and non-global resolved addresses are rejected.
+The reference discovery CLI fetches only the canonical HTTPS directory URL when
+no local directory is supplied. `--directory` selects an explicitly reviewed
+local snapshot for offline use and contribution testing. Remote reads use no
+cookies, authorization headers, proxy credentials, or ambient application
+credentials; redirects, time, and response bytes are bounded; and non-global
+resolved addresses are rejected.
 
 The discovery client **MUST NOT** probe mesh endpoints. Independent probing is a
 separate, future service with its own authority, rate, privacy, and abuse model.

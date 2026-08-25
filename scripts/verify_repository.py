@@ -34,7 +34,10 @@ REQUIRED = (
     "SECURITY.md",
     "SUPPORT.md",
     "docs/readiness.md",
+    "directory/README.md",
+    "directory/public-meshes.json",
     "evaluation/results/README.md",
+    "spec/public-mesh-directory-v0.md",
 )
 FORBIDDEN_NAMES = {".env", "id_rsa", "id_ed25519", "private.seed"}
 PRIVATE_KEY_MARKERS = (

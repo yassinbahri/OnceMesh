@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -80,8 +81,13 @@ def main() -> int:
             "/conformance/node/run.mjs",
             "/docs/release.md",
             "/docs/readiness.md",
+            "/directory/public-meshes.json",
+            "/spec/public-mesh-directory-v0.md",
+            "/schemas/public-mesh-directory-v0.schema.json",
+            "/conformance/public-mesh-directory-v0.json",
             "/evaluation/organization-pilot/pilot.json.template",
             "/scripts/verify_pilot_schemas.py",
+            "/scripts/verify_public_directory.py",
         )
         for suffix in required_suffixes:
             if not any(name.endswith(suffix) for name in names):
@@ -96,9 +102,20 @@ def main() -> int:
         environment = Path(directory) / "venv"
         venv.EnvBuilder(with_pip=True).create(environment)
         python = _python(environment)
+        clean_environment = os.environ.copy()
+        clean_environment.pop("PYTHONPATH", None)
         subprocess.run(
-            [str(python), "-m", "pip", "install", "--disable-pip-version-check", str(wheel.resolve())],
+            [
+                str(python),
+                "-m",
+                "pip",
+                "install",
+                "--disable-pip-version-check",
+                "--force-reinstall",
+                str(wheel.resolve()),
+            ],
             check=True,
+            env=clean_environment,
         )
         smoke = subprocess.run(
             [
@@ -113,14 +130,20 @@ def main() -> int:
             ],
             check=True,
             capture_output=True,
+            env=clean_environment,
             text=True,
         )
         value = json.loads(smoke.stdout)
         if value != {"sqlite": "SQLiteActiveKeyIndex", "version": EXPECTED_VERSION}:
             raise ValueError(f"clean wheel smoke returned unexpected data: {value}")
-        for command in ("oncemesh-eval", "oncemesh-federation", "oncemesh-pilot"):
+        for command in ("oncemesh-eval", "oncemesh-federation", "oncemesh-pilot", "oncemesh-discover"):
             executable = environment / (f"Scripts/{command}.exe" if sys.platform == "win32" else f"bin/{command}")
-            subprocess.run([str(executable), "--help"], check=True, capture_output=True)
+            subprocess.run(
+                [str(executable), "--help"],
+                check=True,
+                capture_output=True,
+                env=clean_environment,
+            )
     print(json.dumps({"passed": True, "version": EXPECTED_VERSION, "wheel": wheel.name, "sdist": sdist.name}))
     return 0
 

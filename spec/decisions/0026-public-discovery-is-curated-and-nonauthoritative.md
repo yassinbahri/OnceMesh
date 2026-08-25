@@ -20,8 +20,8 @@ authorization decision.
 ## Consequences
 
 - Operators submit entries through reviewable repository changes.
-- Installed clients can search an embedded snapshot and explicitly fetch the
-  canonical HTTPS snapshot.
+- Clients fetch only the canonical HTTPS snapshot or search an explicitly
+  selected local snapshot.
 - `observed` means endpoint connectivity only.
 - Automatic configuration, popularity ranking, DHT discovery, and live probes
   remain out of scope for v0.

@@ -1,0 +1,72 @@
+{
+  "spec_version": "oncemesh.public-mesh-directory-conformance/v0",
+  "valid_directory": {
+    "spec_version": "oncemesh.public-mesh-directory/v0",
+    "generated_at": "2026-08-25T08:15:00Z",
+    "directory": {
+      "name": "OnceMesh conformance directory",
+      "repository": "https://example.com/oncemesh-directory",
+      "policy_url": "https://example.com/oncemesh-directory/policy"
+    },
+    "meshes": [
+      {
+        "peer_id": "example-eu",
+        "display_name": "Example EU Mesh",
+        "description": "A non-production profile used only for portable conformance testing.",
+        "operator": {
+          "name": "Example Operator",
+          "website": "https://example.com/operator"
+        },
+        "endpoint": "https://mesh.example.com",
+        "regions": ["eu-central", "eu-west"],
+        "status": "observed",
+        "protocols": ["oncemesh.federation-request/v0", "oncemesh.federation-bundle/v0"],
+        "operations": [
+          {
+            "name": "document.pdf-to-text",
+            "version": "1",
+            "output_schema": "oncemesh.document/text-v1"
+          }
+        ],
+        "availability_identity": {
+          "spec_version": "oncemesh.federation-identity/v0",
+          "peer_id": "example-eu",
+          "purpose": "availability",
+          "profile": "oncemesh.ed25519/v1",
+          "key_id": "sha256:448f04ffcba874db93d9fd02520daa583a92b1f20b100ff791202a6d7a93e0de",
+          "public_key_base64url": "5zTqbCtiV95yNV5HKqBaTEh-a0Y8Ap7TBt8vAbVja1g"
+        },
+        "receipt_identities": [
+          {
+            "spec_version": "oncemesh.federation-identity/v0",
+            "peer_id": "example-eu",
+            "purpose": "receipt",
+            "profile": "oncemesh.ed25519/v1",
+            "key_id": "sha256:d5da611ef1d8e91707341a283df5f4a9fecbff7abdb380843a4000f4eed95cb4",
+            "public_key_base64url": "fVnFYj3UCnSqTVoyrGRdOz-V2urkwiviVHbdakhvc4I"
+          }
+        ],
+        "stats": {
+          "evidence_kind": "directory-observed",
+          "window_started_at": "2026-08-24T08:00:00Z",
+          "window_ended_at": "2026-08-25T08:00:00Z",
+          "observed_at": "2026-08-25T08:05:00Z",
+          "sample_size": 100,
+          "successful_requests": 99,
+          "bytes_served": 1234567,
+          "availability_ratio": "0.990000",
+          "latency_ms": {"p50": "25.5", "p95": "80.0"}
+        },
+        "submitted_at": "2026-08-24T07:00:00Z"
+      }
+    ]
+  },
+  "invalid_mutations": [
+    {"name": "plain-http-endpoint", "pointer": "/meshes/0/endpoint", "value": "http://mesh.example.com"},
+    {"name": "identity-peer-mismatch", "pointer": "/meshes/0/availability_identity/peer_id", "value": "another-peer"},
+    {"name": "observed-with-self-report", "pointer": "/meshes/0/stats/evidence_kind", "value": "operator-reported"},
+    {"name": "incorrect-availability-ratio", "pointer": "/meshes/0/stats/availability_ratio", "value": "0.980000"},
+    {"name": "inverted-latency-percentiles", "pointer": "/meshes/0/stats/latency_ms/p95", "value": "10.0"},
+    {"name": "insufficient-statistics-sample", "pointer": "/meshes/0/stats/sample_size", "value": 19}
+  ]
+}
