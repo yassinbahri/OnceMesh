@@ -23,6 +23,14 @@ classifiers = [
 ]
 dependencies = ["cryptography>=42,<51", "pypdf>=6.10,<7"]
 
+[project.urls]
+Homepage = "https://github.com/yassinbahri/OnceMesh"
+Documentation = "https://github.com/yassinbahri/OnceMesh/blob/main/docs/user-guide.md"
+Repository = "https://github.com/yassinbahri/OnceMesh.git"
+Issues = "https://github.com/yassinbahri/OnceMesh/issues"
+Changelog = "https://github.com/yassinbahri/OnceMesh/blob/main/CHANGELOG.md"
+Observatory = "https://yassinbahri.github.io/OnceMesh/"
+
 [project.optional-dependencies]
 langgraph = ["langgraph>=1.0.10,<2"]
 langchain = ["langchain-core>=1.4.7,<2"]

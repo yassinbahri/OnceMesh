@@ -23,6 +23,19 @@ review the matching profile change. Operators must provide:
 - an operator contact through the issue without including credentials or private
   keys.
 
+Region and jurisdiction labels are operator-declared discovery metadata. The
+operator must state whether a label describes server location, intended service
+area, or a claimed data-processing jurisdiction. The v0 directory validates the
+label's structure and makes it filterable; it does not independently locate the
+server, enforce residency, geofence clients, or route requests. Operators should
+link public policy or independent evidence when those claims matter.
+
+The same evidence boundary applies to operator identity, advertised operations,
+and publication-review claims: maintainers review them for plausibility and may
+suspend material misrepresentation, but the scheduled monitor proves only
+bounded endpoint reachability. Identity-document encoding, key fingerprints,
+purposes, and peer-ID binding are mechanically validated.
+
 Optional statistics must follow `spec/public-mesh-directory-v0.md`. Operator
 statistics remain labeled `operator-reported`. The scheduled directory monitor
 publishes a separate recent reachability snapshot; maintainers may promote a

@@ -1,0 +1,40 @@
+{
+  "spec_version": "oncemesh.federation-pilot/v0",
+  "role": "origin",
+  "peer_id": "<stable-public-peer-id>",
+  "listen": {
+    "host": "0.0.0.0",
+    "port": 8443
+  },
+  "tls": {
+    "certificate_file": "/operator/tls/fullchain.pem",
+    "private_key_file": "/run/secrets/tls_private_key"
+  },
+  "availability_private_seed_env": "ONCEMESH_AVAILABILITY_SEED",
+  "receipt_public_keys": [
+    {
+      "key_id": "<receipt-key-id>",
+      "public_key_base64url": "<receipt-public-key>"
+    }
+  ],
+  "authorized_requesters": [
+    {
+      "peer_id": "<receiver-peer-id>",
+      "public_key_base64url": "<receiver-request-public-key>"
+    }
+  ],
+  "publications": [
+    {
+      "file": "/operator/publications/<reviewed-publication>.json"
+    }
+  ],
+  "limits": {
+    "request_max_age_seconds": 60,
+    "max_future_clock_skew_seconds": 5,
+    "max_remembered_nonces": 10000,
+    "max_response_bytes": 50000000,
+    "max_concurrent_requests": 16,
+    "max_requests_per_window": 120,
+    "rate_window_seconds": 60
+  }
+}

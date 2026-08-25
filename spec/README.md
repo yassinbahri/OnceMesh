@@ -23,3 +23,6 @@ are interpreted as described by RFC 2119 and RFC 8174.
   non-authoritative public peer discovery and aggregate statistics.
 - [`public-mesh-status-v0.md`](public-mesh-status-v0.md) defines bounded,
   independently initiated reachability observations for the Pages directory.
+- [`public-reference-operator-v0.md`](public-reference-operator-v0.md) defines
+  the bounded deployment and evidence gates for the first OnceMesh-operated
+  public federation origin.

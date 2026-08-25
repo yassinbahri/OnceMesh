@@ -356,3 +356,28 @@ M9 code preparation is complete. Publication, a real organization pilot, and an
 independently administered federation pilot are intentionally not claimed. They
 require registry/repository authority and evidence produced by external
 operators; simulated evidence cannot satisfy those gates.
+
+## M10 — Public reference mesh pilot
+
+- Bounded first-party origin profile with no arbitrary execution or uploads
+- Provider-neutral hardened single-replica container deployment
+- Managed DNS, TLS, secret custody, monitoring, backup, and rollback
+- Reviewed public canary publications and explicit requester enrollment
+- Independent receiver exchange and directory-controlled observations
+
+Exit criterion: an independently hosted OnceMesh origin completes gates G0
+through G5 in `public-reference-operator-v0.md`, including a separately
+administered receiver, withdrawal and revocation drills, at least 20 directory
+observations, and a seven-day controlled canary.
+
+Local preparation recorded on 2026-08-25: the new reference image built from a
+78 KB allowlisted context, contained no operator material, ran as UID/GID 10001,
+and passed a read-only, capability-dropped, no-network runtime probe. The
+provider-neutral Compose profile renders with a loopback default, scoped Docker
+secrets, bounded resources, and read-only operator material. Repository tests,
+the 20-check three-role Docker rehearsal, and all nine real optional-framework
+adapter tests passed.
+
+M10 remains open. Local hardening does not provide public DNS, managed TLS,
+independent key custody, external receiver evidence, uptime observations, or
+operational ownership.

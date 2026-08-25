@@ -5,51 +5,96 @@ labels: [directory]
 body:
   - type: markdown
     attributes:
-      value: Discovery does not grant trust. Never include private keys, credentials, tenant data, payloads, or per-request records.
+      value: |
+        ## Before you register
+
+        This form proposes a listing; it does not grant trust or certify the operator. Maintainers validate the profile structure and public identities, and the directory monitor checks bounded HTTPS reachability. Operator identity, service geography, data residency, result quality, and publication review remain operator declarations unless separate evidence is linked.
+
+        Never include private keys, seeds, credentials, tenant data, payloads, IP addresses, or per-request records.
   - type: input
     id: peer_id
     attributes:
       label: Stable peer ID
-      description: The exact peer ID used by the public federation endpoint.
+      description: The exact, long-lived peer ID used by the endpoint and both public identity documents. It cannot silently change without directory review.
+      placeholder: example-eu-origin
     validations:
       required: true
   - type: input
     id: display_name
     attributes:
       label: Public mesh name
+      description: A short human-readable name shown in the public directory. It does not need to equal the peer ID.
+      placeholder: Example EU Public Mesh
     validations:
       required: true
-  - type: input
+  - type: textarea
+    id: description
+    attributes:
+      label: Public description
+      description: Describe what the mesh publishes, who it is intended for, and any important limits. Do not make claims you cannot support.
+      placeholder: Public, reviewed example results for testing OnceMesh federation clients; no private or user-submitted data.
+    validations:
+      required: true
+  - type: textarea
     id: operator
     attributes:
       label: Operator name and HTTPS website
+      description: Provide the accountable person or organization and its public HTTPS website. Maintainers review this claim but do not perform legal identity verification in v0.
+      placeholder: |
+        Name: Example Operator
+        Website: https://example.org
     validations:
       required: true
   - type: input
     id: endpoint
     attributes:
       label: HTTPS federation endpoint
+      description: A public HTTPS origin URL with no credentials, query, or fragment. The monitor will make a credential-free bounded request to /v0/availability every 30 minutes; an expected 401 still counts as reachable.
+      placeholder: https://mesh.example.org
+    validations:
+      required: true
+  - type: textarea
+    id: protocols
+    attributes:
+      label: Supported OnceMesh protocol identifiers
+      description: List the exact immutable protocol versions implemented by the endpoint, one per line. These are operator-declared and checked for valid directory structure; interoperability is established separately by conformance or authenticated probes.
+      placeholder: oncemesh.federation-pilot/v0
     validations:
       required: true
   - type: textarea
     id: operations
     attributes:
       label: Public operations, versions, and output schemas
+      description: List each advertised operation as name, version, and output schema. The directory checks the structure; the reachability monitor does not execute these operations or verify result quality.
+      placeholder: "example.echo | 1 | example.text/v1"
     validations:
       required: true
   - type: textarea
     id: identities
     attributes:
       label: Availability and receipt public identities
-      description: Include public identity documents only. Never include a seed or private key.
+      description: Include the complete public availability identity and every active public receipt identity. Maintainers validate key encoding, fingerprints, purpose, and peer-ID binding. Users must still verify fingerprints through an authenticated channel before trusting them. Never include a seed or private key.
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: regions
     attributes:
       label: Service regions or jurisdictions
+      description: |
+        List operator-declared labels, one per line (for example `eu-central` or `DE`). Say whether each label means server location, intended audience, or claimed data-processing jurisdiction. These labels are for discovery filters only: OnceMesh v0 does not verify geography, enforce data residency, geofence clients, or route requests by region. Link independent evidence or a policy page if the distinction matters.
+      placeholder: |
+        eu-central — server location and intended service region
+        DE — claimed processing jurisdiction; policy: https://example.org/privacy
     validations:
       required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Optional evidence and operating policy
+      description: Link public conformance reports, authenticated probe evidence, uptime history, infrastructure-region evidence, privacy/data-retention policy, or key-fingerprint page. Clearly label operator-produced evidence. Do not include request-level logs or confidential material.
+      placeholder: |
+        Conformance report: https://example.org/oncemesh/conformance.json
+        Operating and retention policy: https://example.org/oncemesh-policy
   - type: checkboxes
     id: declarations
     attributes:
@@ -58,6 +103,10 @@ body:
         - label: I control this endpoint and can verify its key fingerprints through an authenticated channel.
           required: true
         - label: The endpoint exports only results deliberately reviewed and classified as public.
+          required: true
+        - label: I authorize the directory monitor to make its documented credential-free bounded reachability request to this endpoint.
+          required: true
+        - label: I understand that region, jurisdiction, operator, capability, and policy claims are declarations unless the listing links separate evidence.
           required: true
         - label: I understand that listing does not constitute trust, endorsement, or an availability guarantee.
           required: true

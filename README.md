@@ -41,6 +41,7 @@ Docker federation rehearsal, and contributing a new part of the open mesh.
 | Run the public federation rehearsal | [Docker federation guide](docs/user-guide.md#run-the-docker-federation-rehearsal) |
 | Build or request an adapter | [Adapter catalog](docs/adapters/catalog.md) and [authoring guide](docs/adapters/authoring.md) |
 | Register a public mesh | [Public mesh registration](https://github.com/yassinbahri/OnceMesh/issues/new?template=public_mesh_registration.yml) |
+| Operate a reference mesh | [`deploy/public-operator/`](deploy/public-operator/) |
 | Improve the project | [Contribution guide](CONTRIBUTING.md) |
 
 ## How it works
@@ -114,6 +115,28 @@ Explicitly deferred:
 - side-effecting actions;
 - a claim that signed results are semantically correct.
 
+## Install
+
+OnceMesh requires Python 3.11 or newer. Install the core reference
+implementation from PyPI:
+
+```bash
+python -m pip install oncemesh
+```
+
+Install one framework adapter or the complete adapter set only when needed:
+
+```bash
+python -m pip install "oncemesh[langgraph]"
+python -m pip install "oncemesh[langchain]"
+python -m pip install "oncemesh[llamaindex]"
+python -m pip install "oncemesh[adapters]"
+```
+
+Version `0.1.0` is a public alpha. Pin the version for controlled pilots and
+review the [readiness statement](docs/readiness.md) before operating a shared
+or public federation origin.
+
 ## Repository map
 
 - `docs/user-guide.md` — practical path through local, private, organization,
@@ -144,6 +167,8 @@ An implementation must not silently define protocol behavior that is absent
 from the specification.
 
 ## Quick start
+
+For repository development, clone the project and install it in editable mode:
 
 ```bash
 python -m pip install -e ".[adapters,dev]"
@@ -238,6 +263,13 @@ configuration, imports a key, or authorizes reuse. See the
 [directory policy](directory/README.md),
 [`public-mesh-directory-v0`](spec/public-mesh-directory-v0.md), and
 [`public-mesh-status-v0`](spec/public-mesh-status-v0.md).
+
+To operate a bounded public origin, start with the
+[`public operator deployment`](deploy/public-operator/) and its staged
+[`acceptance specification`](spec/public-reference-operator-v0.md). The profile
+defaults to loopback and serves only reviewed immutable public publications to
+explicitly enrolled requester identities; it is not an arbitrary LLM or prompt
+execution endpoint.
 
 ## Agent-runtime integration
 

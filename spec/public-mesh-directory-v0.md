@@ -44,7 +44,8 @@ Each profile contains exactly:
 - `operator`: public operator name and HTTPS website;
 - `endpoint`: the HTTPS federation base URL, without credentials, query, or
   fragment;
-- `regions`: public service-region or jurisdiction labels;
+- `regions`: operator-declared service-region or jurisdiction labels used only
+  for presentation and exact-match filtering;
 - `status`: `listed`, `observed`, `suspended`, or `retired`;
 - `protocols`: supported immutable OnceMesh protocol identifiers;
 - `operations`: advertised public operation name, version, and output schema;
@@ -61,6 +62,12 @@ canonical unpadded base64url, its identifier is the SHA-256 digest of the raw
 The directory exposes keys to help an operator compare fingerprints. A client
 **MUST NOT** copy them into a trusted configuration automatically. Trust requires
 an explicit local decision and an authenticated out-of-band key check.
+
+Region labels do not create a routing, geofencing, data-residency, or legal
+compliance control. The directory and reference client validate only that they
+are bounded, unique text labels. A listing or reachability observation does not
+independently verify server location or processing jurisdiction. User interfaces
+**MUST NOT** present these labels as directory-verified facts.
 
 ## 4. Status semantics
 

@@ -13,6 +13,7 @@ for operational proof.
 | --- | --- | --- |
 | Code release | Accepted | Local and hosted tests, static checks, schemas, packages, dependency audit, CodeQL, and Docker rehearsal pass. |
 | Controlled organization pilot | Prepared | Strict tooling and runbook exist. A real workload, accountable owners, measurement window, and rollback drills are still required. |
+| Public reference operator | Prepared locally | A bounded single-origin specification and hardened Compose profile exist. Public DNS, managed TLS, key custody, an independent receiver, and a seven-day canary are still required. |
 | Independent federation production | Blocked | Requires separately administered operators, infrastructure, key custody, governance, and signed evidence. One-host Docker cannot satisfy it. |
 
 ## Locally verified controls
@@ -40,6 +41,12 @@ filesystem and service access, backups and retention, monitoring and alerting,
 dependency updates, incident response, workload-specific capacity tests, and a
 tested kill switch. The local SQLite and filesystem implementations do not add
 distributed consensus, remote backup, or service-level guarantees.
+
+The first-party deployment profile is in
+[`deploy/public-operator`](../deploy/public-operator/). Its loopback default,
+single-replica constraint, external evidence gates, and rollback requirements
+are defined by
+[`public-reference-operator-v0`](../spec/public-reference-operator-v0.md).
 
 ## Promotion rule
 

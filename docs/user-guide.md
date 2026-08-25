@@ -260,6 +260,16 @@ For an actual two-operator pilot, each organization keeps its own seed and
 completed manifest and follows the
 [`external federation runbook`](../evaluation/federation-pilot/README.md).
 
+### Operate a public reference origin
+
+The provider-neutral profile in
+[`deploy/public-operator`](../deploy/public-operator/) turns the reviewed pilot
+server into a single hardened public origin. It defaults to a loopback bind and
+requires separate public and secret roots, managed TLS, explicit requester
+identities, and reviewed public publications. Follow the staged gates in
+[`public-reference-operator-v0`](../spec/public-reference-operator-v0.md); do not
+expose a developer workstation or reuse synthetic evaluation keys.
+
 ## Connect a framework or your own runtime
 
 Built-in integrations cover native Python, LangGraph, LangChain LLM caching,

@@ -1,0 +1,52 @@
+name: oncemesh-public-operator
+
+services:
+  origin:
+    build:
+      context: ../..
+      dockerfile: deploy/public-operator/Dockerfile
+      args:
+        PYTHON_IMAGE: ${ONCEMESH_PYTHON_IMAGE:-python:3.12-slim-bookworm}
+    image: ${ONCEMESH_IMAGE:-oncemesh-public-operator:local}
+    command:
+      - ONCEMESH_AVAILABILITY_SEED
+      - /run/secrets/availability_seed
+      - oncemesh-federation
+      - serve
+      - --manifest
+      - /operator/origin.json
+    init: true
+    restart: unless-stopped
+    read_only: true
+    user: "10001:10001"
+    tmpfs:
+      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+    ports:
+      - "${ONCEMESH_BIND_ADDRESS:-127.0.0.1}:${ONCEMESH_PUBLIC_PORT:-8443}:8443"
+    volumes:
+      - type: bind
+        source: ${ONCEMESH_PUBLIC_ROOT:?set ONCEMESH_PUBLIC_ROOT}
+        target: /operator
+        read_only: true
+    secrets:
+      - availability_seed
+      - tls_private_key
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 128
+    mem_limit: 512m
+    cpus: 1.0
+    stop_grace_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+secrets:
+  availability_seed:
+    file: ${ONCEMESH_SECRET_ROOT:?set ONCEMESH_SECRET_ROOT}/availability.seed
+  tls_private_key:
+    file: ${ONCEMESH_SECRET_ROOT:?set ONCEMESH_SECRET_ROOT}/tls-private-key.pem
