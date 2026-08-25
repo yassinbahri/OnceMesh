@@ -1,0 +1,63 @@
+name: Public mesh registration
+description: Propose an operator endpoint for the curated OnceMesh public directory.
+title: "[directory] "
+labels: [directory]
+body:
+  - type: markdown
+    attributes:
+      value: Discovery does not grant trust. Never include private keys, credentials, tenant data, payloads, or per-request records.
+  - type: input
+    id: peer_id
+    attributes:
+      label: Stable peer ID
+      description: The exact peer ID used by the public federation endpoint.
+    validations:
+      required: true
+  - type: input
+    id: display_name
+    attributes:
+      label: Public mesh name
+    validations:
+      required: true
+  - type: input
+    id: operator
+    attributes:
+      label: Operator name and HTTPS website
+    validations:
+      required: true
+  - type: input
+    id: endpoint
+    attributes:
+      label: HTTPS federation endpoint
+    validations:
+      required: true
+  - type: textarea
+    id: operations
+    attributes:
+      label: Public operations, versions, and output schemas
+    validations:
+      required: true
+  - type: textarea
+    id: identities
+    attributes:
+      label: Availability and receipt public identities
+      description: Include public identity documents only. Never include a seed or private key.
+    validations:
+      required: true
+  - type: input
+    id: regions
+    attributes:
+      label: Service regions or jurisdictions
+    validations:
+      required: true
+  - type: checkboxes
+    id: declarations
+    attributes:
+      label: Operator declarations
+      options:
+        - label: I control this endpoint and can verify its key fingerprints through an authenticated channel.
+          required: true
+        - label: The endpoint exports only results deliberately reviewed and classified as public.
+          required: true
+        - label: I understand that listing does not constitute trust, endorsement, or an availability guarantee.
+          required: true

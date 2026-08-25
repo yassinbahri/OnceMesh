@@ -19,3 +19,5 @@ are interpreted as described by RFC 2119 and RFC 8174.
 
 - [`economic-evidence-v0.md`](economic-evidence-v0.md) defines measured,
   projected, and illustrative savings claims and their required formulas.
+- [`public-mesh-directory-v0.md`](public-mesh-directory-v0.md) defines curated,
+  non-authoritative public peer discovery and aggregate statistics.

@@ -22,6 +22,8 @@ Initial public alpha release candidate.
   economic-model documentation backed by machine-readable hosted evidence.
 - Practical user and contributor guide covering local, private-partition,
   organization, public-federation, Docker, adapter, and extension workflows.
+- Initial curated public-mesh directory specification, schema, empty canonical
+  registry, and operator registration workflow; discovery never grants trust.
 - Fixed conditional substitution reporting so the schema-shaped result is
   returned instead of falling through with no value.
 

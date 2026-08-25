@@ -1,0 +1,10 @@
+{
+  "spec_version": "oncemesh.public-mesh-directory/v0",
+  "generated_at": "2026-08-25T08:15:00Z",
+  "directory": {
+    "name": "OnceMesh Community Directory",
+    "repository": "https://github.com/yassinbahri/OnceMesh",
+    "policy_url": "https://github.com/yassinbahri/OnceMesh/blob/main/directory/README.md"
+  },
+  "meshes": []
+}

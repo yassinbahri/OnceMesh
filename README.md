@@ -95,7 +95,7 @@ Included:
 Explicitly deferred:
 
 - semantic equivalence;
-- automatic peer discovery and private or transitive federation;
+- automatic trust, decentralized peer discovery, and private or transitive federation;
 - reputation, credits, or incentives;
 - automatic interception of agent frameworks (explicit adapters are in scope);
 - side-effecting actions;
@@ -115,6 +115,7 @@ Explicitly deferred:
 - `tests/` — executable conformance and behavior tests
 - `evaluation/results/` — machine-readable measurements and analyses
 - `.github/` — CI, CodeQL, release, dependency update, and contribution policy
+- `directory/` — curated, non-authoritative public mesh catalog and registration policy
 
 ## Development contract
 
