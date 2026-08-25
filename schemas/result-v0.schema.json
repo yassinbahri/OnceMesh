@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/result-v0.schema.json",
+  "title": "OnceMesh Result Manifest v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "action_digest", "artifacts", "produced_at", "fresh_until", "producer"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.result/v0"},
+    "action_digest": {"$ref": "#/$defs/digest"},
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "produced_at": {"type": "string", "format": "date-time"},
+    "fresh_until": {"type": ["string", "null"], "format": "date-time"},
+    "producer": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "digest", "size", "media_type"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "digest": {"$ref": "#/$defs/digest"},
+        "size": {"type": "integer", "minimum": 0},
+        "media_type": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "spec_version": "oncemesh.conformance/v0",
+  "vectors": [
+    {
+      "name": "pypdf-layout-v1",
+      "pdf_bytes_utf8": "%PDF-fixture",
+      "action": {
+        "spec_version": "oncemesh.action/v0",
+        "operation": {"name": "document.pdf-to-text", "version": "1"},
+        "inputs": {"content": {"digest": "sha256:ed41915c09594a9cfbd60c7094cde97444d46c73277d2d84947f73edfc251742", "size": 12, "media_type": "application/pdf"}},
+        "executor": {"name": "oncemesh.pypdf", "version": "6.10.0", "config": {"profile": "layout-v1", "max_pages": 100, "max_output_bytes": 1000000}},
+        "output_schema": "oncemesh.document/plain-text-v1",
+        "vary": {}
+      },
+      "canonical_json": "{\"executor\":{\"config\":{\"max_output_bytes\":1000000,\"max_pages\":100,\"profile\":\"layout-v1\"},\"name\":\"oncemesh.pypdf\",\"version\":\"6.10.0\"},\"inputs\":{\"content\":{\"digest\":\"sha256:ed41915c09594a9cfbd60c7094cde97444d46c73277d2d84947f73edfc251742\",\"media_type\":\"application/pdf\",\"size\":12}},\"operation\":{\"name\":\"document.pdf-to-text\",\"version\":\"1\"},\"output_schema\":\"oncemesh.document/plain-text-v1\",\"spec_version\":\"oncemesh.action/v0\",\"vary\":{}}",
+      "action_digest": "sha256:c5db1d25752cbae19299bce0fdd0f949ac89a805cff68f02e3593a87f9c1306f"
+    }
+  ]
+}

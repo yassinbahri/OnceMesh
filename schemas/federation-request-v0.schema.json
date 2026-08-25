@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-request-v0.schema.json",
+  "title": "OnceMesh Federation HTTP Request v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "peer_id", "timestamp", "nonce", "method", "path", "body_digest"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.federation-request/v0"},
+    "peer_id": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "nonce": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+    "method": {"const": "GET"},
+    "path": {
+      "type": "string",
+      "pattern": "^/v0/(availability|bundles/sha256:[0-9a-f]{64})$"
+    },
+    "body_digest": {
+      "const": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

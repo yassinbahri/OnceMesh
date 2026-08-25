@@ -1,0 +1,16 @@
+{
+  "spec_version": "oncemesh.authorization-partition-conformance/v1",
+  "vectors": [
+    {
+      "name": "tenant-scope-subject-partition",
+      "partition_key_hex": "4444444444444444444444444444444444444444444444444444444444444444",
+      "claims": {
+        "profile": "oncemesh.authorization-partition/v1",
+        "tenant": "tenant-a",
+        "scopes": ["documents:read", "pdf:parse"],
+        "subject_partition": "finance"
+      },
+      "authorization_partition": "hmac-sha256:43552948b56dc79b8013b5a970e8a69fed2028ea7f079cc190d7364625c60c1a"
+    }
+  ]
+}

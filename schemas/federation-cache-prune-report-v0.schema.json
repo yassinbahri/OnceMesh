@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-cache-prune-report-v0.schema.json",
+  "title": "OnceMesh Federation Cache Prune Report v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "observed_at", "before", "expired_entries_removed", "after", "passed"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.federation-cache-prune-report/v0"},
+    "observed_at": {"type": "string", "format": "date-time", "pattern": "Z$"},
+    "before": {"$ref": "#/$defs/summary"},
+    "expired_entries_removed": {"type": "integer", "minimum": 0},
+    "after": {"$ref": "#/$defs/summary"},
+    "passed": {"type": "boolean"}
+  },
+  "$defs": {
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entries", "blobs"],
+      "properties": {
+        "entries": {"type": "integer", "minimum": 0},
+        "blobs": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

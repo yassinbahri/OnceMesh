@@ -1,0 +1,43 @@
+{
+  "spec_version": "oncemesh.availability-signature-conformance/v0",
+  "vectors": [
+    {
+      "name": "single-public-echo-result",
+      "private_seed_hex": "6666666666666666666666666666666666666666666666666666666666666666",
+      "public_key_hex": "34b4d9043156cb6dcf0beb0a2949b7559c940d2bcb6dbe8c53a9b30278e3a746",
+      "unsigned_manifest": {
+        "spec_version": "oncemesh.availability/v0",
+        "peer_id": "org-a",
+        "generated_at": "2026-08-24T21:00:00Z",
+        "entries": [
+          {
+            "action_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "result_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "operation": {"name": "example.echo", "version": "1"},
+            "artifact_bytes": 5
+          }
+        ],
+        "signature": null
+      },
+      "signed_manifest": {
+        "spec_version": "oncemesh.availability/v0",
+        "peer_id": "org-a",
+        "generated_at": "2026-08-24T21:00:00Z",
+        "entries": [
+          {
+            "action_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "result_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "operation": {"name": "example.echo", "version": "1"},
+            "artifact_bytes": 5
+          }
+        ],
+        "signature": {
+          "profile": "oncemesh.ed25519/v1",
+          "key_id": "sha256:f7b7676c94df7e8fd9998e38f9fff04d8588b00d1801764e3f1877a3feae4477",
+          "value": "Fk0j3XvIwpr_E_GwS8E04GTx_FaL85WYMj6ZRAnwwFaCLb0R6-SmonUPvq1kCK2Q6tqd__FnOibCbQbkW29ZAQ"
+        }
+      },
+      "manifest_digest": "sha256:309a2b16df89196f4e83b98ffee738cd6812d3d9166a91cea7ddaa8d0f8a6fff"
+    }
+  ]
+}

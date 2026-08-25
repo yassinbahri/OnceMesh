@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/evaluation-event-v0.schema.json",
+  "title": "OnceMesh Evaluation Event v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "mode", "action_digest", "operation", "candidate_hit", "tier", "artifact_match", "rejections", "execution_duration_ms", "lookup_duration_ms", "reusable_bytes", "verified_time_saved_ms", "verified_cost_saved", "evaluation_id", "validation_method", "validation_status", "validation_duration_ms", "validation_recorded", "substituted", "decision_reason", "kill_switch_active", "estimated_substitution_time_saved_ms"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.evaluation-event/v0"},
+    "mode": {"enum": ["shadow", "execute", "substitute"]},
+    "action_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "operation": {"type": "string", "minLength": 1},
+    "candidate_hit": {"type": "boolean"},
+    "tier": {"type": ["string", "null"]},
+    "artifact_match": {"type": ["boolean", "null"]},
+    "rejections": {"type": "array", "items": {"type": "string"}},
+    "execution_duration_ms": {"type": "number", "minimum": 0},
+    "lookup_duration_ms": {"type": "number", "minimum": 0},
+    "reusable_bytes": {"type": "integer", "minimum": 0},
+    "verified_time_saved_ms": {"type": "number", "minimum": 0},
+    "verified_cost_saved": {"type": "number", "minimum": 0},
+    "evaluation_id": {"type": ["string", "null"]},
+    "validation_method": {"type": ["string", "null"]},
+    "validation_status": {"type": ["integer", "null"]},
+    "validation_duration_ms": {"type": "number", "minimum": 0},
+    "validation_recorded": {"type": "boolean"},
+    "substituted": {"type": "boolean"},
+    "decision_reason": {"type": ["string", "null"]},
+    "kill_switch_active": {"type": "boolean"},
+    "estimated_substitution_time_saved_ms": {"type": "number", "minimum": 0}
+  }
+}

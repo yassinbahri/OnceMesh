@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-identity-v0.schema.json",
+  "title": "OnceMesh Federation Signing Identity v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "peer_id", "purpose", "profile", "key_id", "public_key_base64url"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.federation-identity/v0"},
+    "peer_id": {"type": "string", "minLength": 1},
+    "purpose": {"enum": ["availability", "request", "receipt"]},
+    "profile": {"const": "oncemesh.ed25519/v1"},
+    "key_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "public_key_base64url": {"type": "string", "pattern": "^[A-Za-z0-9_-]{43}$"}
+  }
+}

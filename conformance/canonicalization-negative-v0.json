@@ -1,0 +1,9 @@
+{
+  "spec_version": "oncemesh.canonicalization-negative/v0",
+  "vectors": [
+    {"name": "floating-point-number", "value": {"number": 1.5}, "reason": "floating_point"},
+    {"name": "unsafe-positive-integer", "value": {"number": 9007199254740992}, "reason": "unsafe_integer"},
+    {"name": "lone-high-surrogate", "value": {"text": "\ud800"}, "reason": "unicode_surrogate"},
+    {"name": "lone-low-surrogate", "value": {"text": "\udfff"}, "reason": "unicode_surrogate"}
+  ]
+}

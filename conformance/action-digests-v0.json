@@ -1,0 +1,56 @@
+{
+  "spec_version": "oncemesh.conformance/v0",
+  "vectors": [
+    {
+      "name": "html-document-parse",
+      "action": {
+        "spec_version": "oncemesh.action/v0",
+        "operation": {
+          "name": "document.parse",
+          "version": "1"
+        },
+        "inputs": {
+          "content": {
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "media_type": "text/html"
+          }
+        },
+        "executor": {
+          "name": "example-parser",
+          "version": "2.1.0",
+          "config": {}
+        },
+        "output_schema": "oncemesh.example/markdown-v1",
+        "vary": {}
+      },
+      "canonical_json": "{\"executor\":{\"config\":{},\"name\":\"example-parser\",\"version\":\"2.1.0\"},\"inputs\":{\"content\":{\"digest\":\"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"media_type\":\"text/html\"}},\"operation\":{\"name\":\"document.parse\",\"version\":\"1\"},\"output_schema\":\"oncemesh.example/markdown-v1\",\"spec_version\":\"oncemesh.action/v0\",\"vary\":{}}",
+      "action_digest": "sha256:2210ded3db9362571041506a2a9c638c5cd75201b1c2b0ff86f6976b7d413274"
+    },
+    {
+      "name": "http-fetch-v1",
+      "action": {
+        "spec_version": "oncemesh.action/v0",
+        "operation": {"name": "http.fetch", "version": "1"},
+        "inputs": {"url": "https://example.com/docs?q=a%20b", "method": "GET", "accept": "text/html"},
+        "executor": {"name": "oncemesh.http", "version": "1", "config": {"follow_redirects": true, "max_bytes": 1000}},
+        "output_schema": "oncemesh.http/response-v1",
+        "vary": {}
+      },
+      "canonical_json": "{\"executor\":{\"config\":{\"follow_redirects\":true,\"max_bytes\":1000},\"name\":\"oncemesh.http\",\"version\":\"1\"},\"inputs\":{\"accept\":\"text/html\",\"method\":\"GET\",\"url\":\"https://example.com/docs?q=a%20b\"},\"operation\":{\"name\":\"http.fetch\",\"version\":\"1\"},\"output_schema\":\"oncemesh.http/response-v1\",\"spec_version\":\"oncemesh.action/v0\",\"vary\":{}}",
+      "action_digest": "sha256:2bdbeef8375baeea7b85efc6fb977f69e4176a7dddbdd56a2a68622ae9eff352"
+    },
+    {
+      "name": "html-to-markdown-v1",
+      "action": {
+        "spec_version": "oncemesh.action/v0",
+        "operation": {"name": "document.html-to-markdown", "version": "1"},
+        "inputs": {"content": {"digest": "sha256:e3c89409c454273073d0f5ee178ae842ea0dc3d5b38348feef46122c80c84e85", "size": 26, "media_type": "text/html"}},
+        "executor": {"name": "oncemesh.html-markdown", "version": "1", "config": {"profile": "readable-v1"}},
+        "output_schema": "oncemesh.document/markdown-v1",
+        "vary": {}
+      },
+      "canonical_json": "{\"executor\":{\"config\":{\"profile\":\"readable-v1\"},\"name\":\"oncemesh.html-markdown\",\"version\":\"1\"},\"inputs\":{\"content\":{\"digest\":\"sha256:e3c89409c454273073d0f5ee178ae842ea0dc3d5b38348feef46122c80c84e85\",\"media_type\":\"text/html\",\"size\":26}},\"operation\":{\"name\":\"document.html-to-markdown\",\"version\":\"1\"},\"output_schema\":\"oncemesh.document/markdown-v1\",\"spec_version\":\"oncemesh.action/v0\",\"vary\":{}}",
+      "action_digest": "sha256:078ad7a2068bb3ff098bbd0da515fa52629d330d4211c6c5693205f7073e6f52"
+    }
+  ]
+}

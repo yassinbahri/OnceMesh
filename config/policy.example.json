@@ -1,0 +1,13 @@
+{
+  "spec_version": "oncemesh.policy/v0",
+  "enabled": true,
+  "operations": {
+    "http.fetch/1": {
+      "mode": "conditional-substitute",
+      "trusted_result_producers": ["evaluation:local"],
+      "trusted_validation_producers": ["runtime:local"],
+      "allowed_tiers": ["organization"],
+      "max_validation_ttl_seconds": 3600
+    }
+  }
+}

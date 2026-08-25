@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/source-validation-v0.schema.json",
+  "title": "OnceMesh Source Validation v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "result_digest", "validated_at", "fresh_until", "producer", "method"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.validation/v0"},
+    "result_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "validated_at": {"type": "string", "format": "date-time"},
+    "fresh_until": {"type": "string", "format": "date-time"},
+    "producer": {"type": "string", "minLength": 1},
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "status", "etag", "last_modified"],
+      "properties": {
+        "name": {"const": "http.conditional"},
+        "version": {"const": "1"},
+        "status": {"const": 304},
+        "etag": {"type": ["string", "null"]},
+        "last_modified": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

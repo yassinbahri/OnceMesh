@@ -1,0 +1,35 @@
+{
+  "spec_version": "oncemesh.receipt-signature-conformance/v1",
+  "vectors": [
+    {
+      "name": "rfc8032-seed-oncemesh-production-receipt",
+      "private_seed_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
+      "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "unsigned_receipt": {
+        "spec_version": "oncemesh.receipt/v0",
+        "result_digest": "sha256:ae91b4c498e735fc9071a100f498cd5cbbcfbd093b72c23bb72915d760d47ee9",
+        "producer": "evaluation:local",
+        "executor_environment": {
+          "implementation": "oncemesh-python",
+          "platform": "test/amd64"
+        },
+        "signature": null
+      },
+      "signed_receipt": {
+        "spec_version": "oncemesh.receipt/v0",
+        "result_digest": "sha256:ae91b4c498e735fc9071a100f498cd5cbbcfbd093b72c23bb72915d760d47ee9",
+        "producer": "evaluation:local",
+        "executor_environment": {
+          "implementation": "oncemesh-python",
+          "platform": "test/amd64"
+        },
+        "signature": {
+          "profile": "oncemesh.ed25519/v1",
+          "key_id": "sha256:21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9",
+          "value": "rU4uLPohIckeMo87mlHCVBN_a2kwho6ycac721jKMmon9OMJPRFl0dFGFJsA3u0wnEgtdLkvE3NFmAlZ6ABBDQ"
+        }
+      },
+      "receipt_digest": "sha256:f7e3cfd208b18c874eb3257acab30ba6b2a20b1aa1945bdb15b676ad7a51ebbc"
+    }
+  ]
+}

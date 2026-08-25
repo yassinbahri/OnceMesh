@@ -1,0 +1,17 @@
+{
+  "spec_version": "oncemesh.canonical-json-conformance/v0",
+  "vectors": [
+    {
+      "name": "unicode-code-point-order-and-controls",
+      "value": {
+        "😀": "astral",
+        "a": "line\n",
+        "é": "café",
+        "": "private",
+        "control": "\u000b"
+      },
+      "canonical_json": "{\"a\":\"line\\n\",\"control\":\"\\u000b\",\"é\":\"café\",\"\":\"private\",\"😀\":\"astral\"}",
+      "digest": "sha256:88311f975913e2c183353349652fd0f35738e18cfcab601c54f9e75869825f6b"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-receiver-v0.schema.json",
+  "title": "OnceMesh Federation Receiver Pilot Manifest v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "role", "run_id", "receiver_peer_id", "request_private_seed_env", "origin", "action_file", "evidence_file", "cache_directory", "limits"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.federation-pilot/v0"},
+    "role": {"const": "receiver"},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "receiver_peer_id": {"type": "string", "minLength": 1},
+    "request_private_seed_env": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]*$"},
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base_url", "peer_id", "ca_file", "availability_public_key_base64url", "receipt_public_keys", "trusted_producers", "allowed_operations"],
+      "properties": {
+        "base_url": {"type": "string", "pattern": "^https://"},
+        "peer_id": {"type": "string", "minLength": 1},
+        "ca_file": {"type": "string", "minLength": 1},
+        "availability_public_key_base64url": {"type": "string", "pattern": "^[A-Za-z0-9_-]{43}$"},
+        "receipt_public_keys": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["key_id", "public_key_base64url"],
+            "properties": {
+              "key_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+              "public_key_base64url": {"type": "string", "pattern": "^[A-Za-z0-9_-]{43}$"}
+            }
+          }
+        },
+        "trusted_producers": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "allowed_operations": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^.+/.+$"}}
+      }
+    },
+    "action_file": {"type": "string", "minLength": 1},
+    "evidence_file": {"type": "string", "minLength": 1},
+    "cache_directory": {"type": "string", "minLength": 1},
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["timeout_milliseconds", "max_availability_response_bytes", "max_bundle_response_bytes", "max_entries", "max_artifact_bytes", "max_transfer_bytes", "max_availability_age_seconds", "max_future_clock_skew_seconds", "retention_seconds"],
+      "properties": {
+        "timeout_milliseconds": {"type": "integer", "minimum": 1, "maximum": 60000},
+        "max_availability_response_bytes": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "max_bundle_response_bytes": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "max_entries": {"type": "integer", "minimum": 1, "maximum": 100000},
+        "max_artifact_bytes": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "max_transfer_bytes": {"type": "integer", "minimum": 1, "maximum": 1000000000},
+        "max_availability_age_seconds": {"type": "integer", "minimum": 1, "maximum": 86400},
+        "max_future_clock_skew_seconds": {"type": "integer", "minimum": 0, "maximum": 3600},
+        "retention_seconds": {"type": "integer", "minimum": 1, "maximum": 31536000}
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/organization-pilot-report-v0.schema.json",
+  "title": "OnceMesh Organization Pilot Report v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "pilot_id", "organization_id", "environment_kind", "observed_dates", "record_count", "totals", "rates", "checks", "evidence_digest", "externally_reviewable"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.organization-pilot-report/v0"},
+    "pilot_id": {"type": "string", "minLength": 1},
+    "organization_id": {"type": "string", "minLength": 1},
+    "environment_kind": {"enum": ["real", "synthetic"]},
+    "observed_dates": {"type": "array", "items": {"type": "string", "format": "date"}},
+    "record_count": {"type": "integer", "minimum": 1},
+    "totals": {"type": "object"},
+    "rates": {"type": "object"},
+    "checks": {"type": "object", "additionalProperties": {"type": "boolean"}},
+    "evidence_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "externally_reviewable": {"type": "boolean"}
+  }
+}

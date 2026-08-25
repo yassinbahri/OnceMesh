@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-preflight-report-v0.schema.json",
+  "title": "OnceMesh Federation Offline Preflight Report v0",
+  "oneOf": [
+    {"$ref": "#/$defs/origin"},
+    {"$ref": "#/$defs/receiver"}
+  ],
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "digest", "size"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "digest": {"$ref": "#/$defs/digest"},
+        "size": {"type": "integer", "minimum": 0}
+      }
+    },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec_version", "role", "peer_id", "tls_certificate_digest", "authorized_requesters", "availability_key_id", "receipt_key_ids", "publications", "limits", "passed"],
+      "properties": {
+        "spec_version": {"const": "oncemesh.federation-preflight-report/v0"},
+        "role": {"const": "origin"},
+        "peer_id": {"type": "string", "minLength": 1},
+        "tls_certificate_digest": {"$ref": "#/$defs/digest"},
+        "authorized_requesters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["peer_id", "key_id"],
+            "properties": {
+              "peer_id": {"type": "string", "minLength": 1},
+              "key_id": {"$ref": "#/$defs/digest"}
+            }
+          }
+        },
+        "availability_key_id": {"$ref": "#/$defs/digest"},
+        "receipt_key_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/digest"}},
+        "publications": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["action_digest", "result_digest", "producer", "artifacts"],
+            "properties": {
+              "action_digest": {"$ref": "#/$defs/digest"},
+              "result_digest": {"$ref": "#/$defs/digest"},
+              "producer": {"type": "string", "minLength": 1},
+              "artifacts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/artifact"}}
+            }
+          }
+        },
+        "limits": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "passed": {"const": true}
+      }
+    },
+    "receiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec_version", "role", "peer_id", "origin_peer_id", "origin_url", "ca_bundle_digest", "request_key_id", "availability_key_id", "receipt_key_ids", "trusted_producers", "allowed_operations", "action_digest", "limits", "evidence_path_is_new", "passed"],
+      "properties": {
+        "spec_version": {"const": "oncemesh.federation-preflight-report/v0"},
+        "role": {"const": "receiver"},
+        "peer_id": {"type": "string", "minLength": 1},
+        "origin_peer_id": {"type": "string", "minLength": 1},
+        "origin_url": {"type": "string", "format": "uri", "pattern": "^https://[^/?#@]+/?$"},
+        "ca_bundle_digest": {"$ref": "#/$defs/digest"},
+        "request_key_id": {"$ref": "#/$defs/digest"},
+        "availability_key_id": {"$ref": "#/$defs/digest"},
+        "receipt_key_ids": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/digest"}},
+        "trusted_producers": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "allowed_operations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}},
+        "action_digest": {"$ref": "#/$defs/digest"},
+        "limits": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "evidence_path_is_new": {"const": true},
+        "passed": {"const": true}
+      }
+    }
+  }
+}

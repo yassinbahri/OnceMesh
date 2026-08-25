@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/operation-policy-v0.schema.json",
+  "title": "OnceMesh Operation Policy v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "enabled", "operations"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.policy/v0"},
+    "enabled": {"type": "boolean"},
+    "operations": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/operation"}
+    }
+  },
+  "$defs": {
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "trusted_result_producers", "trusted_validation_producers", "allowed_tiers", "max_validation_ttl_seconds"],
+      "properties": {
+        "mode": {"enum": ["disabled", "shadow", "conditional-substitute"]},
+        "trusted_result_producers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "trusted_validation_producers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "allowed_tiers": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "max_validation_ttl_seconds": {"type": "integer", "minimum": 1, "maximum": 604800}
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "spec_version": "oncemesh.conformance/v0",
+  "vectors": [
+    {
+      "name": "http-etag-not-modified",
+      "record": {
+        "spec_version": "oncemesh.validation/v0",
+        "result_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "validated_at": "2026-08-24T15:00:00Z",
+        "fresh_until": "2026-08-25T15:00:00Z",
+        "producer": "evaluation:local",
+        "method": {
+          "name": "http.conditional",
+          "version": "1",
+          "status": 304,
+          "etag": "v1",
+          "last_modified": null
+        }
+      },
+      "canonical_json": "{\"fresh_until\":\"2026-08-25T15:00:00Z\",\"method\":{\"etag\":\"v1\",\"last_modified\":null,\"name\":\"http.conditional\",\"status\":304,\"version\":\"1\"},\"producer\":\"evaluation:local\",\"result_digest\":\"sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"spec_version\":\"oncemesh.validation/v0\",\"validated_at\":\"2026-08-24T15:00:00Z\"}",
+      "validation_digest": "sha256:8bc26688cca06889c314baa803761ec5c4abcff588c1343718385ed394384216"
+    }
+  ]
+}

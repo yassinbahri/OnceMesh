@@ -1,0 +1,22 @@
+{
+  "spec_version": "oncemesh.conformance/federation-request-signatures-v0",
+  "vectors": [
+    {
+      "name": "org-b-availability-get",
+      "private_seed_hex": "8888888888888888888888888888888888888888888888888888888888888888",
+      "public_key_hex": "b2491d9502ae28630a2bacb2e0c74510ffcdd328c334ff3e1393e75b2d31e7dc",
+      "key_id": "sha256:a2392944d82466b712478b25d95a5633111bc767c03121aada27dbd348406801",
+      "request": {
+        "spec_version": "oncemesh.federation-request/v0",
+        "peer_id": "org-b",
+        "timestamp": "2026-08-24T22:00:00Z",
+        "nonce": "00112233445566778899aabbccddeeff",
+        "method": "GET",
+        "path": "/v0/availability",
+        "body_digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "signature": "lhSueFFOtXt9R1mKSYYGgaX0lG7l47h-I9a6Ik8PnX_xx5B_y3PyZD2ofrDX8d7t2sz_PR9sKDqQ3V_9PN-3Ag",
+      "request_digest": "sha256:5c51abeb57335834faf9c7fb6a8e099c589c43927332fe3f6d6fa7e862ed8600"
+    }
+  ]
+}

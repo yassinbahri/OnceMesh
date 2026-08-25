@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-publication-v0.schema.json",
+  "title": "OnceMesh Federation Public Publication v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "classification", "action", "manifest", "receipt", "artifacts"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.federation-publication/v0"},
+    "classification": {"const": "public"},
+    "action": {"type": "object"},
+    "manifest": {"type": "object"},
+    "receipt": {"type": "object"},
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^(?:[A-Za-z0-9_-]{4})*(?:[A-Za-z0-9_-]{2}|[A-Za-z0-9_-]{3})?$"
+      }
+    }
+  }
+}

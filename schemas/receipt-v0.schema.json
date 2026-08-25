@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/receipt-v0.schema.json",
+  "title": "OnceMesh Receipt v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "result_digest", "producer", "executor_environment", "signature"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.receipt/v0"},
+    "result_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "producer": {"type": "string", "minLength": 1},
+    "executor_environment": {"type": "object"},
+    "signature": {"type": ["object", "null"]}
+  }
+}

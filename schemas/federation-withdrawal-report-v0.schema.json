@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-withdrawal-report-v0.schema.json",
+  "title": "OnceMesh Federation Withdrawal Report v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "peer_id", "withdrawn_result_digest", "remaining_publications", "restart_required"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.federation-withdrawal-report/v0"},
+    "peer_id": {"type": "string", "minLength": 1},
+    "withdrawn_result_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "remaining_publications": {"type": "integer", "minimum": 0},
+    "restart_required": {"const": true}
+  }
+}

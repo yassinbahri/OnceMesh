@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/federation-simulated-acceptance-report-v0.schema.json",
+  "title": "OnceMesh Simulated Federation Acceptance Report v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "date", "scenario_id", "environment_kind", "administrative_independence", "container_runtime", "image_reference", "metadata", "checks", "secret_scan", "passed", "limitations", "ephemeral_test_secrets_destroyed"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.federation-simulated-acceptance-report/v0"},
+    "date": {"type": "string", "format": "date"},
+    "scenario_id": {"const": "m3-three-role-container-v0"},
+    "environment_kind": {"const": "simulated"},
+    "administrative_independence": {"const": false},
+    "container_runtime": {"type": "string", "minLength": 1},
+    "image_reference": {"type": "string", "minLength": 1},
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_digest", "result_digest", "artifact_digest", "artifact_bytes"],
+      "properties": {
+        "action_digest": {"$ref": "#/$defs/digest"},
+        "result_digest": {"$ref": "#/$defs/digest"},
+        "artifact_digest": {"$ref": "#/$defs/digest"},
+        "artifact_bytes": {"type": "integer", "minimum": 0}
+      }
+    },
+    "checks": {
+      "type": "object",
+      "minProperties": 19,
+      "additionalProperties": {"const": true}
+    },
+    "secret_scan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scanned_needles", "matches", "passed"],
+      "properties": {
+        "scanned_needles": {"type": "integer", "minimum": 1},
+        "matches": {"const": 0},
+        "passed": {"const": true}
+      }
+    },
+    "passed": {"const": true},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "ephemeral_test_secrets_destroyed": {"const": true}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

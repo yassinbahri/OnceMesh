@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/substitution-report-v0.schema.json",
+  "title": "OnceMesh Substitution Report v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "evaluation_id", "workload", "expected_evaluations", "summary", "checks", "promotion_review_ready"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.substitution-report/v0"},
+    "evaluation_id": {"type": "string", "minLength": 1},
+    "workload": {"type": "string", "minLength": 1},
+    "expected_evaluations": {"type": "integer", "minimum": 1},
+    "summary": {"type": "object"},
+    "checks": {"type": "object", "additionalProperties": {"type": "boolean"}},
+    "promotion_review_ready": {"type": "boolean"}
+  }
+}

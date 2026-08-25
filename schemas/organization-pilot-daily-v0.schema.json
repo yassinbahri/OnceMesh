@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/organization-pilot-daily-v0.schema.json",
+  "title": "OnceMesh Organization Pilot Daily Record v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "pilot_id", "date", "operation", "evaluations", "candidate_hits", "compared_hits", "mismatches", "substitutions", "errors", "lookup_duration_ms", "verified_time_saved_ms", "verified_cost_saved", "reusable_bytes", "kill_switch_drills", "evidence_digest"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.organization-pilot-daily/v0"},
+    "pilot_id": {"type": "string", "minLength": 1},
+    "date": {"type": "string", "format": "date"},
+    "operation": {"type": "string", "minLength": 1},
+    "evaluations": {"type": "integer", "minimum": 0},
+    "candidate_hits": {"type": "integer", "minimum": 0},
+    "compared_hits": {"type": "integer", "minimum": 0},
+    "mismatches": {"type": "integer", "minimum": 0},
+    "substitutions": {"type": "integer", "minimum": 0},
+    "errors": {"type": "integer", "minimum": 0},
+    "lookup_duration_ms": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$"},
+    "verified_time_saved_ms": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$"},
+    "verified_cost_saved": {"type": "string", "pattern": "^[0-9]+(?:\\.[0-9]+)?$"},
+    "reusable_bytes": {"type": "integer", "minimum": 0},
+    "kill_switch_drills": {"type": "integer", "minimum": 0},
+    "evidence_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}
