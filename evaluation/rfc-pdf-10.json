@@ -1,0 +1,24 @@
+{
+  "spec_version": "oncemesh.evaluation/v0",
+  "name": "rfc-pdf-10",
+  "allowed_hosts": ["www.rfc-editor.org"],
+  "repetitions": 2,
+  "request_delay_ms": 300,
+  "urls": [
+    {"url": "https://www.rfc-editor.org/rfc/rfc9000.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9001.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9110.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9111.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9112.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9113.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9114.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9204.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9293.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"},
+    {"url": "https://www.rfc-editor.org/rfc/rfc9309.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"}
+  ],
+  "promotion": {
+    "minimum_candidate_hits": 20,
+    "maximum_mismatches": 0,
+    "minimum_candidate_match_rate": "1.000000"
+  }
+}

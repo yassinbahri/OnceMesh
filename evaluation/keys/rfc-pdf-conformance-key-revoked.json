@@ -1,0 +1,11 @@
+{
+  "spec_version": "oncemesh.key-registry/v0",
+  "keys": {
+    "sha256:21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9": {
+      "profile": "oncemesh.ed25519/v1",
+      "public_key": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo",
+      "status": "revoked",
+      "producers": ["evaluation:local"]
+    }
+  }
+}

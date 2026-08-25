@@ -1,0 +1,15 @@
+{
+  "spec_version": "oncemesh.evaluation/v0",
+  "name": "rfc-pdf-revocation-one",
+  "allowed_hosts": ["www.rfc-editor.org"],
+  "repetitions": 1,
+  "request_delay_ms": 0,
+  "urls": [
+    {"url": "https://www.rfc-editor.org/rfc/rfc9309.pdf", "accept": "application/pdf", "freshness_seconds": 86400, "estimated_fetch_cost": "0.000000"}
+  ],
+  "promotion": {
+    "minimum_candidate_hits": 1,
+    "maximum_mismatches": 0,
+    "minimum_candidate_match_rate": "1.000000"
+  }
+}

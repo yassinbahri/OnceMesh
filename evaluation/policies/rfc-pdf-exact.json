@@ -1,0 +1,17 @@
+{
+  "spec_version": "oncemesh.policy/v0",
+  "enabled": true,
+  "operations": {
+    "document.pdf-to-text/1": {
+      "mode": "exact-substitute",
+      "trusted_result_producers": ["evaluation:local"],
+      "trusted_validation_producers": [],
+      "allowed_tiers": ["evaluation-store"],
+      "max_validation_ttl_seconds": 86400,
+      "receipt_requirement": "required",
+      "trusted_receipt_keys": ["sha256:21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9"],
+      "authorization_partition": "public",
+      "max_stale_seconds": 0
+    }
+  }
+}

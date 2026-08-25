@@ -1,0 +1,122 @@
+name: oncemesh-m3-sim
+
+services:
+  origin_initial:
+    build:
+      context: ../..
+      dockerfile: evaluation/federation-sandbox/Dockerfile
+    image: oncemesh-federation-sandbox:local
+    command:
+      - ONCEMESH_AVAILABILITY_SEED
+      - /run/secrets/availability_seed
+      - oncemesh-federation
+      - serve
+      - --manifest
+      - /pilot/origin-initial.json
+    read_only: true
+    user: "10001:10001"
+    tmpfs:
+      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+    volumes:
+      - type: bind
+        source: ${SANDBOX_WORK}/origin
+        target: /pilot
+    secrets:
+      - availability_seed
+      - origin_tls_key
+    networks:
+      federation:
+        aliases: [origin]
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+
+  origin_withdrawn:
+    profiles: [withdrawn]
+    image: oncemesh-federation-sandbox:local
+    command:
+      - ONCEMESH_AVAILABILITY_SEED
+      - /run/secrets/availability_seed
+      - oncemesh-federation
+      - serve
+      - --manifest
+      - /pilot/origin-withdrawn.json
+    read_only: true
+    user: "10001:10001"
+    tmpfs:
+      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+    volumes:
+      - type: bind
+        source: ${SANDBOX_WORK}/origin
+        target: /pilot
+    secrets:
+      - availability_seed
+      - origin_tls_key
+    networks:
+      federation:
+        aliases: [origin]
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+
+  receiver:
+    image: oncemesh-federation-sandbox:local
+    command:
+      - ONCEMESH_REQUEST_SEED
+      - /run/secrets/receiver_request_seed
+      - oncemesh-federation
+      - preflight-receiver
+      - --manifest
+      - /pilot/receiver-success.json
+    read_only: true
+    user: "10001:10001"
+    tmpfs:
+      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+    volumes:
+      - type: bind
+        source: ${SANDBOX_WORK}/receiver
+        target: /pilot
+    secrets:
+      - receiver_request_seed
+    networks: [federation]
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+
+  untrusted_peer:
+    image: oncemesh-federation-sandbox:local
+    command:
+      - ONCEMESH_REQUEST_SEED
+      - /run/secrets/untrusted_request_seed
+      - oncemesh-federation
+      - probe
+      - --manifest
+      - /pilot/untrusted.json
+    read_only: true
+    user: "10001:10001"
+    tmpfs:
+      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+    volumes:
+      - type: bind
+        source: ${SANDBOX_WORK}/untrusted
+        target: /pilot
+    secrets:
+      - untrusted_request_seed
+    networks: [federation]
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+
+networks:
+  federation:
+    internal: true
+
+secrets:
+  availability_seed:
+    file: ${SANDBOX_WORK}/secrets/availability.seed
+  receiver_request_seed:
+    file: ${SANDBOX_WORK}/secrets/receiver-request.seed
+  untrusted_request_seed:
+    file: ${SANDBOX_WORK}/secrets/untrusted-request.seed
+  origin_tls_key:
+    file: ${SANDBOX_WORK}/secrets/origin-tls-key.pem

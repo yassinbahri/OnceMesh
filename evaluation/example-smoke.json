@@ -1,0 +1,20 @@
+{
+  "spec_version": "oncemesh.evaluation/v0",
+  "name": "example-smoke",
+  "allowed_hosts": ["example.com"],
+  "repetitions": 2,
+  "request_delay_ms": 0,
+  "urls": [
+    {
+      "url": "https://example.com/",
+      "accept": "text/html",
+      "freshness_seconds": 3600,
+      "estimated_fetch_cost": "0.000000"
+    }
+  ],
+  "promotion": {
+    "minimum_candidate_hits": 2,
+    "maximum_mismatches": 0,
+    "minimum_candidate_match_rate": "1.000000"
+  }
+}

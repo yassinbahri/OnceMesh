@@ -1,0 +1,27 @@
+{
+  "spec_version": "oncemesh.organization-pilot/v0",
+  "pilot_id": "replace-with-unique-pilot-id",
+  "organization_id": "replace-with-pseudonymous-organization-id",
+  "environment_kind": "real",
+  "window": {
+    "starts_on": "2026-09-01",
+    "ends_on": "2026-09-30",
+    "minimum_observed_days": 14
+  },
+  "operations": ["document.pdf-to-text/1"],
+  "owners": {
+    "workload": "replace-workload-owner-role-id",
+    "security": "replace-security-owner-role-id",
+    "operations": "replace-operations-owner-role-id"
+  },
+  "thresholds": {
+    "minimum_evaluations": 1000,
+    "maximum_mismatches": 0,
+    "maximum_error_rate": "0.01",
+    "minimum_candidate_hit_rate": "0.20",
+    "minimum_verified_time_saved_ms": "3600000",
+    "minimum_verified_cost_saved": "1.00",
+    "maximum_mean_lookup_ms": "100",
+    "minimum_kill_switch_drills": 2
+  }
+}

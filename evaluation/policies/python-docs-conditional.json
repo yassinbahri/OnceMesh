@@ -1,0 +1,17 @@
+{
+  "spec_version": "oncemesh.policy/v0",
+  "enabled": true,
+  "operations": {
+    "http.fetch/1": {
+      "mode": "conditional-substitute",
+      "trusted_result_producers": ["evaluation:local"],
+      "trusted_validation_producers": ["runtime:local"],
+      "allowed_tiers": ["evaluation-store"],
+      "max_validation_ttl_seconds": 3600,
+      "receipt_requirement": "optional",
+      "trusted_receipt_keys": [],
+      "authorization_partition": "public",
+      "max_stale_seconds": 0
+    }
+  }
+}

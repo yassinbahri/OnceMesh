@@ -1,0 +1,18 @@
+{
+  "spec_version": "oncemesh.organization-pilot-daily/v0",
+  "pilot_id": "replace-with-unique-pilot-id",
+  "date": "2026-09-01",
+  "operation": "document.pdf-to-text/1",
+  "evaluations": 100,
+  "candidate_hits": 25,
+  "compared_hits": 25,
+  "mismatches": 0,
+  "substitutions": 20,
+  "errors": 0,
+  "lookup_duration_ms": "500",
+  "verified_time_saved_ms": "300000",
+  "verified_cost_saved": "0.25",
+  "reusable_bytes": 1000000,
+  "kill_switch_drills": 0,
+  "evidence_digest": "sha256:replace-with-64-lowercase-hex-characters"
+}
