@@ -14,9 +14,9 @@ services:
       - --manifest
       - /pilot/origin-initial.json
     read_only: true
-    user: "10001:10001"
+    user: "${SANDBOX_UID:-10001}:${SANDBOX_GID:-10001}"
     tmpfs:
-      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+      - /tmp:size=16m,mode=700,uid=${SANDBOX_UID:-10001},gid=${SANDBOX_GID:-10001}
     volumes:
       - type: bind
         source: ${SANDBOX_WORK}/origin
@@ -42,9 +42,9 @@ services:
       - --manifest
       - /pilot/origin-withdrawn.json
     read_only: true
-    user: "10001:10001"
+    user: "${SANDBOX_UID:-10001}:${SANDBOX_GID:-10001}"
     tmpfs:
-      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+      - /tmp:size=16m,mode=700,uid=${SANDBOX_UID:-10001},gid=${SANDBOX_GID:-10001}
     volumes:
       - type: bind
         source: ${SANDBOX_WORK}/origin
@@ -69,9 +69,9 @@ services:
       - --manifest
       - /pilot/receiver-success.json
     read_only: true
-    user: "10001:10001"
+    user: "${SANDBOX_UID:-10001}:${SANDBOX_GID:-10001}"
     tmpfs:
-      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+      - /tmp:size=16m,mode=700,uid=${SANDBOX_UID:-10001},gid=${SANDBOX_GID:-10001}
     volumes:
       - type: bind
         source: ${SANDBOX_WORK}/receiver
@@ -93,9 +93,9 @@ services:
       - --manifest
       - /pilot/untrusted.json
     read_only: true
-    user: "10001:10001"
+    user: "${SANDBOX_UID:-10001}:${SANDBOX_GID:-10001}"
     tmpfs:
-      - /tmp:size=16m,mode=700,uid=10001,gid=10001
+      - /tmp:size=16m,mode=700,uid=${SANDBOX_UID:-10001},gid=${SANDBOX_GID:-10001}
     volumes:
       - type: bind
         source: ${SANDBOX_WORK}/untrusted

@@ -23,6 +23,8 @@ jobs:
       - run: python scripts/verify_pilot_schemas.py
       - run: python -m coverage run -m unittest discover -s tests -q
       - run: python -m coverage report
+      - name: Remove local project before third-party audit
+        run: python -m pip uninstall -y oncemesh
       - run: python -m pip_audit --local --skip-editable --strict --progress-spinner off
 
   core:

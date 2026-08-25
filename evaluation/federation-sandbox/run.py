@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -262,6 +263,10 @@ class Compose:
         self.file = Path(__file__).resolve().parent / "compose.yaml"
         self.environment = os.environ.copy()
         self.environment["SANDBOX_WORK"] = work.as_posix()
+        host_uid = os.getuid() if hasattr(os, "getuid") else 10001
+        host_gid = os.getgid() if hasattr(os, "getgid") else 10001
+        self.environment["SANDBOX_UID"] = str(host_uid if host_uid > 0 else 10001)
+        self.environment["SANDBOX_GID"] = str(host_gid if host_gid > 0 else 10001)
         self.base = ["docker", "compose", "-f", str(self.file)]
         self.outputs: list[str] = []
 
@@ -332,6 +337,7 @@ def secret_scan(work: Path, outputs: list[str]) -> dict[str, Any]:
 
 def isolation_checks(compose_config: dict[str, Any]) -> dict[str, bool]:
     services = compose_config["services"]
+    role_names = ("origin_initial", "receiver", "untrusted_peer")
 
     def secret_names(service: str) -> set[str]:
         values = services[service].get("secrets", [])
@@ -344,19 +350,19 @@ def isolation_checks(compose_config: dict[str, Any]) -> dict[str, bool]:
         "private_network_is_internal": bool(compose_config["networks"]["federation"].get("internal")),
         "origin_has_no_host_ports": not services["origin_initial"].get("ports"),
         "roles_run_as_non_root": all(
-            services[name].get("user") == "10001:10001"
-            for name in ("origin_initial", "receiver", "untrusted_peer")
+            re.fullmatch(r"[1-9][0-9]*:[1-9][0-9]*", services[name].get("user", ""))
+            for name in role_names
         ),
         "role_root_filesystems_are_read_only": all(
             services[name].get("read_only") is True
-            for name in ("origin_initial", "receiver", "untrusted_peer")
+            for name in role_names
         ),
         "origin_secrets_are_scoped": secret_names("origin_initial") == {"availability_seed", "origin_tls_key"},
         "receiver_secret_is_scoped": secret_names("receiver") == {"receiver_request_seed"},
         "untrusted_secret_is_scoped": secret_names("untrusted_peer") == {"untrusted_request_seed"},
         "linux_capabilities_are_dropped": all(
             services[name].get("cap_drop") == ["ALL"]
-            for name in ("origin_initial", "receiver", "untrusted_peer")
+            for name in role_names
         ),
     }
 
