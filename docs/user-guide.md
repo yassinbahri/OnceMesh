@@ -153,6 +153,10 @@ that an output is semantically correct.
 
 ### Discover a public mesh
 
+Browse the human directory at
+[yassinbahri.github.io/OnceMesh](https://yassinbahri.github.io/OnceMesh/), or use
+the machine-friendly CLI:
+
 ```bash
 oncemesh-discover list
 oncemesh-discover list --operation document.pdf-to-text/1 --region eu-central
@@ -170,6 +174,12 @@ and key fingerprints, decide which producers and operations to trust, then add a
 peer to the receiver's local configuration. See the
 [`directory policy`](../directory/README.md). The directory begins empty rather
 than presenting the one-host Docker simulation as a public operator.
+
+The web directory also shows the most recent hosted reachability observation and
+response time. It does not run checks in a visitor's browser. A scheduled GitHub
+Actions monitor sends one unauthenticated bounded request, so the signal cannot
+prove that an authorized exchange or advertised operation will succeed. See
+[`public-mesh-status-v0`](../spec/public-mesh-status-v0.md).
 
 ## Run the Docker federation rehearsal
 

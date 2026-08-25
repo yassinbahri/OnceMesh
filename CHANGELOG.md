@@ -26,6 +26,8 @@ Initial public alpha release candidate.
   registry, and operator registration workflow; discovery never grants trust.
 - Safe `oncemesh-discover` validation, listing, filtering, and inspection CLI,
   with portable semantic rejection vectors and distribution checks.
+- Static GitHub Pages public-mesh observatory with responsive search, separate
+  registry and reachability signals, and a bounded scheduled HTTPS monitor.
 - Fixed conditional substitution reporting so the schema-shaped result is
   returned instead of falling through with no value.
 

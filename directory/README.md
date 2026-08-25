@@ -24,8 +24,14 @@ review the matching profile change. Operators must provide:
   keys.
 
 Optional statistics must follow `spec/public-mesh-directory-v0.md`. Operator
-statistics remain labeled `operator-reported`; only a future directory-controlled
-probe may label statistics `directory-observed` or move an entry to `observed`.
+statistics remain labeled `operator-reported`. The scheduled directory monitor
+publishes a separate recent reachability snapshot; maintainers may promote a
+profile to `observed` only with a qualifying directory-controlled statistics
+window.
+
+After registration, the public profile appears in the
+[OnceMesh Observatory](https://yassinbahri.github.io/OnceMesh/). No payment,
+ranking benefit, or automatic trust is attached to a listing.
 
 ## Review and removal
 
@@ -62,6 +68,20 @@ python scripts/verify_public_directory.py
 write peer configuration, import a key, or grant trust. The canonical directory
 is currently empty because no independently operated public endpoint has yet
 completed registration.
+
+## Status monitoring
+
+GitHub Actions checks each active public entry every 30 minutes. It sends one
+credential-free, bounded HTTPS request to `/v0/availability`; it follows no
+redirects and records only the public state, HTTP status, elapsed milliseconds,
+and observation time. Suspended and retired entries are not contacted.
+
+`up` means the endpoint produced `200` or the expected unauthenticated `401`.
+`degraded` means HTTPS answered differently. `down` means the hosted runner could
+not complete DNS, connection, TLS, or the request. This is a single-location
+reachability observation—not authenticated federation, throughput, result
+correctness, or an availability guarantee. The exact method is specified in
+[`public-mesh-status-v0`](../spec/public-mesh-status-v0.md).
 
 The complete profile shape and accepted/rejected examples are in
 [`conformance/public-mesh-directory-v0.json`](../conformance/public-mesh-directory-v0.json).

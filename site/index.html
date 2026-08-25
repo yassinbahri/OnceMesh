@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore curated public OnceMesh operators and recent independent reachability observations.">
+    <meta name="theme-color" content="#082332">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+    <title>OnceMesh Observatory</title>
+    <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/styles.css">
+    <script src="assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#directory">Skip to directory</a>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="OnceMesh Observatory home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>OnceMesh <strong>Observatory</strong></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#directory">Directory</a>
+        <a href="#method">Method</a>
+        <a href="https://github.com/yassinbahri/OnceMesh/blob/main/docs/user-guide.md">Use OnceMesh</a>
+        <a class="nav-action" href="https://github.com/yassinbahri/OnceMesh/issues/new?template=public_mesh_registration.yml">List a mesh</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Public federation · observed every 30 minutes</p>
+          <h1 id="hero-title">The open mesh,<br><em>observed.</em></h1>
+          <p class="hero-intro">Find public OnceMesh operators, inspect what they offer, and see whether their protocol endpoint recently answered—from one transparent, independently run monitor.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#directory">Explore the mesh</a>
+            <a class="button secondary" href="https://github.com/yassinbahri/OnceMesh">View the source</a>
+          </div>
+        </div>
+
+        <div class="signal-panel" aria-label="How a mesh becomes visible">
+          <div class="signal-caption"><span>Public signal path</span><span>Trust stays local</span></div>
+          <ol class="signal-rail">
+            <li>
+              <span class="signal-node registry"></span>
+              <div><b>Registered</b><small>Reviewed metadata</small></div>
+            </li>
+            <li>
+              <span class="signal-node observed"></span>
+              <div><b>Observed</b><small>Bounded HTTPS check</small></div>
+            </li>
+            <li>
+              <span class="signal-node local"></span>
+              <div><b>Chosen locally</b><small>Your trust decision</small></div>
+            </li>
+          </ol>
+          <p class="signal-note">A green signal means “recently reachable.” It never means “automatically trusted.”</p>
+        </div>
+      </section>
+
+      <section class="telemetry" aria-label="Directory summary">
+        <div><span id="stat-listed">—</span><small>listed operators</small></div>
+        <div><span id="stat-up">—</span><small>reachable now</small></div>
+        <div><span id="stat-latency">—</span><small>median response</small></div>
+        <div><span id="stat-checked">Loading</span><small>latest observation</small></div>
+      </section>
+
+      <section class="directory-section" id="directory" aria-labelledby="directory-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Community directory</p>
+            <h2 id="directory-title">Find an operator</h2>
+          </div>
+          <p>Search reviewed profiles. Reachability is shown separately from registry standing.</p>
+        </div>
+
+        <div class="filters" aria-label="Directory filters">
+          <label class="search-field">
+            <span>Search</span>
+            <input id="search" type="search" placeholder="Name, operator, peer ID…" autocomplete="off">
+          </label>
+          <label>
+            <span>Region</span>
+            <select id="region-filter"><option value="">All regions</option></select>
+          </label>
+          <label>
+            <span>Operation</span>
+            <select id="operation-filter"><option value="">All operations</option></select>
+          </label>
+          <label>
+            <span>Signal</span>
+            <select id="signal-filter">
+              <option value="">Any signal</option>
+              <option value="up">Up</option>
+              <option value="degraded">Degraded</option>
+              <option value="down">Down</option>
+              <option value="not_checked">Not checked</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="directory-message" class="directory-message" role="status" aria-live="polite">Loading the public registry…</div>
+        <div id="mesh-grid" class="mesh-grid"></div>
+      </section>
+
+      <section class="method" id="method" aria-labelledby="method-title">
+        <div class="method-lead">
+          <p class="eyebrow">Read the signal correctly</p>
+          <h2 id="method-title">Observation is not endorsement.</h2>
+          <p>The monitor makes one credential-free request to each active public endpoint. It publishes only a state, response code, and elapsed time. No payloads, identities, resolved addresses, or error details enter the snapshot.</p>
+          <a href="https://github.com/yassinbahri/OnceMesh/blob/main/spec/public-mesh-status-v0.md">Read the complete method →</a>
+        </div>
+        <dl class="method-grid">
+          <div><dt><span class="state-dot up"></span>Up</dt><dd>The protocol returned <code>200</code> or its expected unauthenticated <code>401</code>.</dd></div>
+          <div><dt><span class="state-dot degraded"></span>Degraded</dt><dd>HTTPS answered, but not with the expected protocol response.</dd></div>
+          <div><dt><span class="state-dot down"></span>Down</dt><dd>The hosted monitor could not complete DNS, connection, TLS, or the request.</dd></div>
+          <div><dt><span class="state-dot unchecked"></span>Not checked</dt><dd>The entry is suspended or retired, or no current observation exists.</dd></div>
+        </dl>
+      </section>
+
+      <section class="contribute" aria-labelledby="contribute-title">
+        <p class="eyebrow">Build the open mesh</p>
+        <h2 id="contribute-title">Operate it. Measure it. Improve it.</h2>
+        <p>Run a public-only federation endpoint, register its public profile, or help strengthen the adapters, protocol, tests, and operator tooling.</p>
+        <div class="contribute-actions">
+          <a class="button primary" href="https://github.com/yassinbahri/OnceMesh/issues/new?template=public_mesh_registration.yml">Register a public mesh</a>
+          <a class="button secondary" href="https://github.com/yassinbahri/OnceMesh/blob/main/CONTRIBUTING.md">Contribution guide</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>OnceMesh is an open protocol experiment.</span>
+      <span><a href="https://github.com/yassinbahri/OnceMesh/blob/main/directory/README.md">Directory policy</a> · <a href="https://github.com/yassinbahri/OnceMesh/blob/main/SECURITY.md">Security</a> · <a href="https://github.com/yassinbahri/OnceMesh">GitHub</a></span>
+    </footer>
+  </body>
+</html>

@@ -31,6 +31,18 @@ New to the project? Read the [practical guide](docs/user-guide.md) for the full
 journey from local reuse to private partitions, organization operation, the
 Docker federation rehearsal, and contributing a new part of the open mesh.
 
+## Where to go
+
+| You want to… | Start here |
+| --- | --- |
+| Find a public operator | [OnceMesh Observatory](https://yassinbahri.github.io/OnceMesh/) |
+| Try exact reuse locally | [Quick start](#quick-start) |
+| Understand privacy and trust boundaries | [User guide](docs/user-guide.md) and [architecture](docs/architecture.md) |
+| Run the public federation rehearsal | [Docker federation guide](docs/user-guide.md#run-the-docker-federation-rehearsal) |
+| Build or request an adapter | [Adapter catalog](docs/adapters/catalog.md) and [authoring guide](docs/adapters/authoring.md) |
+| Register a public mesh | [Public mesh registration](https://github.com/yassinbahri/OnceMesh/issues/new?template=public_mesh_registration.yml) |
+| Improve the project | [Contribution guide](CONTRIBUTING.md) |
+
 ## How it works
 
 ```mermaid
@@ -58,7 +70,7 @@ See the [architecture and trust diagrams](docs/architecture.md).
 | Exact substitution overhead | 20/20 hits in 0.49 s total lookup; signed receipts took 0.58 s |
 | SQLite/WAL index | 3.756× faster than JSON on Windows and 6.109× on Linux for the same 4,000-commit contention profile |
 | Extreme durability stress | 23,200 cross-process JSON-index operations across Windows and non-root Linux |
-| Hosted release validation | 183 Python tests, 77% branch coverage, 29 Node checks, 23 integration checks, and 20 Docker checks |
+| Hosted release validation | 195 Python tests, 77% branch coverage, 29 Node checks, 23 integration checks, and 20 Docker checks |
 
 The public workloads did not attach dollar prices, so the repository makes no
 claim of measured monetary savings. The [performance and economics guide](docs/performance-and-economics.md)
@@ -117,6 +129,7 @@ Explicitly deferred:
 - `evaluation/results/` — machine-readable measurements and analyses
 - `.github/` — CI, CodeQL, release, dependency update, and contribution policy
 - `directory/` — curated, non-authoritative public mesh catalog and registration policy
+- `site/` — static source for the public OnceMesh Observatory
 
 ## Development contract
 
@@ -208,6 +221,8 @@ described in the transport specification.
 The curated community directory helps users find public federation operators by
 operation, region, and status without turning discovery into trust:
 
+**Browse the live directory:** [yassinbahri.github.io/OnceMesh](https://yassinbahri.github.io/OnceMesh/)
+
 ```bash
 oncemesh-discover list
 oncemesh-discover list --operation document.pdf-to-text/1 --region eu-central
@@ -215,10 +230,14 @@ oncemesh-discover inspect <peer-id>
 ```
 
 The initial directory is intentionally empty until a real operator completes
-registration. Listings expose public identities and optional aggregate stats,
-but the CLI never probes an endpoint, changes peer configuration, imports a key,
-or authorizes reuse. See the [directory policy](directory/README.md) and
-[`public-mesh-directory-v0`](spec/public-mesh-directory-v0.md).
+registration. The Pages site adds a scheduled, independently initiated HTTPS
+reachability observation and response time. That signal is not a trust decision,
+throughput benchmark, or service-level guarantee. Visitors never probe operators
+from their browsers, and the CLI never probes an endpoint, changes peer
+configuration, imports a key, or authorizes reuse. See the
+[directory policy](directory/README.md),
+[`public-mesh-directory-v0`](spec/public-mesh-directory-v0.md), and
+[`public-mesh-status-v0`](spec/public-mesh-status-v0.md).
 
 ## Agent-runtime integration
 

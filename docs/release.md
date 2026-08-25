@@ -8,7 +8,9 @@
 3. Run repository hygiene, static analysis, coverage, schema validation, and the
    live dependency vulnerability audit.
    This includes `python scripts/verify_public_directory.py` for the curated
-   directory schema and semantic rejection vectors.
+   directory and status schemas and semantic rejection vectors. Generate a
+   fresh empty or live status snapshot with `scripts/check_public_meshes.py`,
+   then build the static Pages artifact with `scripts/build_pages.py`.
 4. Run both dependency-light and full-adapter tests, Node conformance, package
    verification, and Docker federation acceptance.
 5. Build from a clean checkout with `python -m build` and validate with

@@ -36,8 +36,17 @@ REQUIRED = (
     "docs/readiness.md",
     "directory/README.md",
     "directory/public-meshes.json",
+    "directory/public-mesh-status.json",
     "evaluation/results/README.md",
     "spec/public-mesh-directory-v0.md",
+    "spec/public-mesh-status-v0.md",
+    "site/index.html",
+    "site/assets/app.js",
+    "site/assets/mark.svg",
+    "site/assets/styles.css",
+    "scripts/build_pages.py",
+    "scripts/check_public_meshes.py",
+    ".github/workflows/pages.yml",
 )
 FORBIDDEN_NAMES = {".env", "id_rsa", "id_ed25519", "private.seed"}
 PRIVATE_KEY_MARKERS = (

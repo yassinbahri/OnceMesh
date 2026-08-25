@@ -1,0 +1,67 @@
+name: Public mesh directory
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/pages.yml"
+      - "directory/**"
+      - "schemas/public-mesh-*.json"
+      - "scripts/build_pages.py"
+      - "scripts/check_public_meshes.py"
+      - "scripts/verify_public_directory.py"
+      - "site/**"
+      - "spec/public-mesh-*.md"
+      - "src/oncemesh/adapters/safe_http.py"
+      - "src/oncemesh/discovery.py"
+      - "src/oncemesh/mesh_status.py"
+  schedule:
+    - cron: "17,47 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-mesh-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --upgrade pip ".[dev]"
+      - run: python scripts/verify_public_directory.py
+      - name: Observe public mesh endpoints
+        run: >-
+          python scripts/check_public_meshes.py
+          --output /tmp/public-mesh-status.json
+          --runner-region github-hosted
+      - name: Build static directory
+        run: >-
+          python scripts/build_pages.py
+          --status /tmp/public-mesh-status.json
+          --output /tmp/oncemesh-pages
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: /tmp/oncemesh-pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy public directory
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -107,6 +107,11 @@ The public directory is outside this trust path. It helps a user locate and
 compare operators, but it never inserts a peer, imports a key, probes an
 endpoint, or changes receiver policy.
 
+The GitHub Pages observatory renders the reviewed registry together with a
+separate ephemeral status snapshot produced by scheduled Actions. Browser
+clients read only the deployed static files and never contact mesh endpoints.
+The monitor has no federation credentials and no write path to the registry.
+
 ## Evidence and promotion ladder
 
 ```mermaid

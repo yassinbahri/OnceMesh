@@ -70,6 +70,29 @@ optional dependency extra, shared conformance probes, native contract tests, and
 at least one real framework workflow test. Compatibility shims contain imports
 only and must never become a second implementation.
 
+## Registering a public mesh
+
+Start with the
+[Public mesh registration form](https://github.com/yassinbahri/OnceMesh/issues/new?template=public_mesh_registration.yml).
+A registration contains public operator metadata, the HTTPS federation origin,
+supported public operations, regions, and availability and receipt public keys.
+Never submit private seeds, credentials, private inputs, tenant information, or
+per-request logs.
+
+A maintainer reviews the declaration and profile change. CI checks the schema,
+key fingerprints, peer identity, ordering, and duplicate endpoints. Once merged,
+the [OnceMesh Observatory](https://yassinbahri.github.io/OnceMesh/) presents the
+profile and begins bounded reachability observations. A listing or green signal
+does not grant trust; every receiver still verifies the operator and configures
+its own peer policy.
+
+To validate a proposed profile locally:
+
+```bash
+oncemesh-discover validate --directory directory/public-meshes.json
+python scripts/verify_public_directory.py
+```
+
 ## Other high-value contributions
 
 - Independent conformance runners in Go, Rust, JavaScript, or other languages.
@@ -77,8 +100,9 @@ only and must never become a second implementation.
 - Secret-manager, monitoring, deployment, backup, and retention integrations.
 - Reproducible shadow evaluations with content-free aggregate evidence.
 - Threat-model review, failure-path tests, and independent federation pilots.
-- Public mesh registrations and privacy-preserving aggregate statistics that
-  follow `spec/public-mesh-directory-v0.md`.
+- Public mesh registrations, independently reproduced observations, and
+  privacy-preserving aggregate statistics that follow the directory and status
+  specifications.
 
 The project welcomes negative results. Evidence that a reuse profile is slower,
 too expensive, nondeterministic, or unsafe helps keep the mesh trustworthy.
