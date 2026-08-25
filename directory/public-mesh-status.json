@@ -1,0 +1,13 @@
+{
+  "spec_version": "oncemesh.public-mesh-status/v0",
+  "generated_at": "2026-08-25T09:00:00Z",
+  "monitor": {
+    "name": "OnceMesh directory monitor",
+    "method": "unauthenticated-https",
+    "path": "/v0/availability",
+    "schedule_minutes": 30,
+    "timeout_ms": 5000,
+    "runner_region": "github-hosted"
+  },
+  "meshes": []
+}

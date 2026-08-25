@@ -86,6 +86,8 @@ class SafeHTTPTransport:
         follow_redirects: bool,
         max_bytes: int,
         conditional_headers: dict[str, str] | None = None,
+        *,
+        accept_http_errors: bool = False,
     ) -> FetchResponse:
         normalized = self.validate_target(url)
         redirect_handler = _CheckedRedirects(self, follow_redirects)
@@ -117,10 +119,30 @@ class SafeHTTPTransport:
                     headers=dict(error.headers.items()),
                     body=b"",
                 )
+            if accept_http_errors:
+                body = error.read(max_bytes + 1)
+                if len(body) > max_bytes:
+                    raise ValueError("response exceeds max_bytes")
+                return FetchResponse(
+                    status=error.code,
+                    final_url=error.geturl(),
+                    headers=dict(error.headers.items()),
+                    body=body,
+                )
             raise ValueError(f"HTTP request failed with status {error.code}") from error
 
     def __call__(self, url: str, accept: str, follow_redirects: bool, max_bytes: int) -> FetchResponse:
         return self._request(url, accept, follow_redirects, max_bytes)
+
+    def probe(self, url: str, accept: str, max_bytes: int) -> FetchResponse:
+        """Return a bounded response for reachability checks, including HTTP errors."""
+        return self._request(
+            url,
+            accept,
+            False,
+            max_bytes,
+            accept_http_errors=True,
+        )
 
     def conditional_get(
         self,

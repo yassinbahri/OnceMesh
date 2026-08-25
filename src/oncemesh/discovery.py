@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 from copy import deepcopy
-from datetime import datetime
 from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 import ipaddress
 import json
@@ -16,6 +15,8 @@ from urllib.parse import urlsplit
 
 from .adapters.http_fetch import FetchResponse
 from .adapters.safe_http import SafeHTTPTransport
+from .document_validation import exact_keys as _exact_keys
+from .document_validation import parse_canonical_utc as _utc
 from .federation_pilot import validate_federation_identity
 
 PUBLIC_DIRECTORY_VERSION = "oncemesh.public-mesh-directory/v0"
@@ -25,17 +26,9 @@ PUBLIC_DIRECTORY_URL = (
 )
 MAX_DIRECTORY_BYTES = 1_000_000
 PEER_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
-UTC_PATTERN = re.compile(
-    r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
-)
 DECIMAL_PATTERN = re.compile(r"^(0|[1-9][0-9]*)(\.[0-9]+)?$")
 RATIO_PATTERN = re.compile(r"^(0\.[0-9]{6}|1\.000000)$")
 MESH_STATUSES = frozenset({"listed", "observed", "suspended", "retired"})
-
-
-def _exact_keys(value: Any, expected: set[str], label: str) -> None:
-    if not isinstance(value, dict) or set(value) != expected:
-        raise ValueError(f"{label} must contain exactly {sorted(expected)}")
 
 
 def _strict_json(raw: str) -> Any:
@@ -59,15 +52,6 @@ def _bounded_text(value: Any, label: str, maximum: int) -> str:
     if any(ord(character) < 0x20 for character in value):
         raise ValueError(f"{label} must not contain control characters")
     return value
-
-
-def _utc(value: Any, label: str) -> datetime:
-    if not isinstance(value, str) or not UTC_PATTERN.fullmatch(value):
-        raise ValueError(f"{label} must be a canonical UTC timestamp")
-    try:
-        return datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except ValueError as error:
-        raise ValueError(f"{label} is not a valid timestamp") from error
 
 
 def _https_url(value: Any, label: str, *, origin_only: bool = False) -> str:

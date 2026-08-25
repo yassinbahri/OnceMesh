@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from oncemesh.discovery import validate_public_mesh_directory  # noqa: E402
+from oncemesh.mesh_status import validate_public_mesh_status  # noqa: E402
 
 
 def _load(path: Path) -> dict:
@@ -31,13 +32,18 @@ def _replace_pointer(document: dict, pointer: str, value: object) -> None:
 
 def main() -> int:
     schema = _load(ROOT / "schemas" / "public-mesh-directory-v0.schema.json")
+    status_schema = _load(ROOT / "schemas" / "public-mesh-status-v0.schema.json")
     directory = _load(ROOT / "directory" / "public-meshes.json")
+    status = _load(ROOT / "directory" / "public-mesh-status.json")
     conformance = _load(ROOT / "conformance" / "public-mesh-directory-v0.json")
     jsonschema.Draft202012Validator.check_schema(schema)
+    jsonschema.Draft202012Validator.check_schema(status_schema)
     checker = jsonschema.FormatChecker()
     for value in (directory, conformance["valid_directory"]):
         jsonschema.validate(value, schema, format_checker=checker)
         validate_public_mesh_directory(value)
+    jsonschema.validate(status, status_schema, format_checker=checker)
+    validate_public_mesh_status(status, directory)
     rejected = 0
     for case in conformance["invalid_mutations"]:
         invalid = deepcopy(conformance["valid_directory"])
@@ -48,7 +54,7 @@ def main() -> int:
             rejected += 1
         else:
             raise ValueError(f"invalid directory case was accepted: {case['name']}")
-    print(json.dumps({"meshes": len(directory["meshes"]), "passed": True, "rejected_vectors": rejected, "schemas": 1}, sort_keys=True))
+    print(json.dumps({"meshes": len(directory["meshes"]), "passed": True, "rejected_vectors": rejected, "schemas": 2}, sort_keys=True))
     return 0
 
 

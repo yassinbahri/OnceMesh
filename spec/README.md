@@ -21,3 +21,5 @@ are interpreted as described by RFC 2119 and RFC 8174.
   projected, and illustrative savings claims and their required formulas.
 - [`public-mesh-directory-v0.md`](public-mesh-directory-v0.md) defines curated,
   non-authoritative public peer discovery and aggregate statistics.
+- [`public-mesh-status-v0.md`](public-mesh-status-v0.md) defines bounded,
+  independently initiated reachability observations for the Pages directory.

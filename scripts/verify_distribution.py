@@ -82,12 +82,16 @@ def main() -> int:
             "/docs/release.md",
             "/docs/readiness.md",
             "/directory/public-meshes.json",
+            "/directory/public-mesh-status.json",
             "/spec/public-mesh-directory-v0.md",
+            "/spec/public-mesh-status-v0.md",
             "/schemas/public-mesh-directory-v0.schema.json",
+            "/schemas/public-mesh-status-v0.schema.json",
             "/conformance/public-mesh-directory-v0.json",
             "/evaluation/organization-pilot/pilot.json.template",
             "/scripts/verify_pilot_schemas.py",
             "/scripts/verify_public_directory.py",
+            "/scripts/check_public_meshes.py",
         )
         for suffix in required_suffixes:
             if not any(name.endswith(suffix) for name in names):

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/public-mesh-status-v0.schema.json",
+  "title": "OnceMesh Public Mesh Status v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "generated_at", "monitor", "meshes"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.public-mesh-status/v0"},
+    "generated_at": {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "monitor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "method", "path", "schedule_minutes", "timeout_ms", "runner_region"],
+      "properties": {
+        "name": {"const": "OnceMesh directory monitor"},
+        "method": {"const": "unauthenticated-https"},
+        "path": {"const": "/v0/availability"},
+        "schedule_minutes": {"type": "integer", "minimum": 5, "maximum": 1440},
+        "timeout_ms": {"type": "integer", "minimum": 100, "maximum": 30000},
+        "runner_region": {"type": "string", "minLength": 1, "maxLength": 80}
+      }
+    },
+    "meshes": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {"$ref": "#/$defs/observation"}
+    }
+  },
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["peer_id", "registry_status", "state", "checked_at", "response_time_ms", "http_status", "detail"],
+      "properties": {
+        "peer_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+        "registry_status": {"enum": ["listed", "observed", "suspended", "retired"]},
+        "state": {"enum": ["up", "degraded", "down", "not_checked"]},
+        "checked_at": {"oneOf": [{"type": "null"}, {"type": "string", "format": "date-time", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"}]},
+        "response_time_ms": {"oneOf": [{"type": "null"}, {"type": "integer", "minimum": 0, "maximum": 30000}]},
+        "http_status": {"oneOf": [{"type": "null"}, {"type": "integer", "minimum": 100, "maximum": 599}]},
+        "detail": {"enum": ["expected-protocol-response", "unexpected-http-response", "network-failure", "registry-inactive"]}
+      }
+    }
+  }
+}

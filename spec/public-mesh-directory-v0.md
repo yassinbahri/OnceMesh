@@ -120,8 +120,9 @@ cookies, authorization headers, proxy credentials, or ambient application
 credentials; redirects, time, and response bytes are bounded; and non-global
 resolved addresses are rejected.
 
-The discovery client **MUST NOT** probe mesh endpoints. Independent probing is a
-separate, future service with its own authority, rate, privacy, and abuse model.
+The discovery CLI **MUST NOT** probe mesh endpoints. The separate monitor defined
+by `public-mesh-status-v0` has its own bounded authority, rate, privacy, and abuse
+model and publishes observations outside the canonical registry.
 
 ## 8. Deferred behavior
 
