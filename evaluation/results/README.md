@@ -17,6 +17,11 @@ and [analysis](repository-readiness-0.1.0-20260825-analysis.md) cover source
 control hygiene, coverage, governance, dependency security, and the defect found
 during the final audit.
 
+The [hosted release-validation report](hosted-release-validation-0.1.0-20260825.json)
+and [analysis](hosted-release-validation-0.1.0-20260825-analysis.md) record the
+successful public Ubuntu/Windows CI matrix, job durations, CodeQL result, and
+security-finding disposition for the final hardened commit.
+
 ## Significant measurements
 
 | Area | Recorded result | Evidence |
@@ -26,6 +31,8 @@ during the final audit.
 | Cross-process durability | 11,600 operations on Windows and 11,600 in non-root Linux preserved committed state | [`adapter-stress-20260824.json`](adapter-stress-20260824.json), [`adapter-stress-linux-20260824.json`](adapter-stress-linux-20260824.json) |
 | SQLite/WAL tier | 20,000 operations per platform; 3.756× Windows and 6.109× Linux speedup over the JSON baseline | [`sqlite-index-stress-20260824.json`](sqlite-index-stress-20260824.json), [`sqlite-index-stress-linux-20260824.json`](sqlite-index-stress-linux-20260824.json) |
 | Federation rehearsal | 20 isolation, trust, TLS, withdrawal, lease, and secret checks passed after the repository audit | [`federation-simulated-acceptance-20260825-repository-regression.json`](federation-simulated-acceptance-20260825-repository-regression.json) |
+| Exact parser reuse | 183.02 s net avoidable parser time in shadow; 10/10 eligible parser executions avoided in controlled substitution | [`rfc-pdf-10-20260824.json`](rfc-pdf-10-20260824.json), [`rfc-pdf-10-substitution-20260824.json`](rfc-pdf-10-substitution-20260824.json) |
+| Hosted release gate | 11 CI jobs passed in 113 s wall time; CodeQL completed with zero open alerts after review | [`hosted-release-validation-0.1.0-20260825.json`](hosted-release-validation-0.1.0-20260825.json) |
 
 ## Evidence classes
 

@@ -11,7 +11,7 @@ for operational proof.
 
 | Gate | Status | Meaning |
 | --- | --- | --- |
-| Code release | Accepted locally | Tests, static checks, schemas, packages, dependency audit, and Docker rehearsal pass. Hosted CI must reproduce this after publication. |
+| Code release | Accepted | Local and hosted tests, static checks, schemas, packages, dependency audit, CodeQL, and Docker rehearsal pass. |
 | Controlled organization pilot | Prepared | Strict tooling and runbook exist. A real workload, accountable owners, measurement window, and rollback drills are still required. |
 | Independent federation production | Blocked | Requires separately administered operators, infrastructure, key custody, governance, and signed evidence. One-host Docker cannot satisfy it. |
 
@@ -29,6 +29,9 @@ for operational proof.
   coverage; CI rejects regressions below 75% and prints every missed branch.
 - Synthetic organization evidence exits unsuccessfully and Docker evidence is
   permanently labeled non-independent.
+- The final public commit passed the 11-job Ubuntu/Windows hosted CI matrix in
+  113 seconds of wall time and CodeQL with zero open alerts after review. See
+  [`hosted-release-validation-0.1.0-20260825.json`](../evaluation/results/hosted-release-validation-0.1.0-20260825.json).
 
 ## Operator obligations
 

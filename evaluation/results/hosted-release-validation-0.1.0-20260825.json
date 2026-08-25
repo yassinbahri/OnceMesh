@@ -1,0 +1,45 @@
+{
+  "spec_version": "oncemesh.hosted-release-validation/v0",
+  "version": "0.1.0",
+  "commit": "8b5698c8b0217f63c0b1f3194a3b2fea912b5611",
+  "generated_at": "2026-08-25T07:52:00Z",
+  "passed": true,
+  "ci": {
+    "url": "https://github.com/yassinbahri/OnceMesh/actions/runs/32822927421",
+    "wall_duration_seconds": 113,
+    "jobs": [
+      {"name": "Docker federation acceptance", "elapsed_seconds": 65, "conclusion": "success"},
+      {"name": "Distribution", "elapsed_seconds": 22, "conclusion": "success"},
+      {"name": "Real adapters / windows-latest", "elapsed_seconds": 108, "conclusion": "success"},
+      {"name": "Core / ubuntu-latest / Python 3.13", "elapsed_seconds": 22, "conclusion": "success"},
+      {"name": "Core / windows-latest / Python 3.12", "elapsed_seconds": 48, "conclusion": "success"},
+      {"name": "Core / ubuntu-latest / Python 3.11", "elapsed_seconds": 24, "conclusion": "success"},
+      {"name": "Core / windows-latest / Python 3.13", "elapsed_seconds": 48, "conclusion": "success"},
+      {"name": "Real adapters / ubuntu-latest", "elapsed_seconds": 42, "conclusion": "success"},
+      {"name": "Core / windows-latest / Python 3.11", "elapsed_seconds": 39, "conclusion": "success"},
+      {"name": "Core / ubuntu-latest / Python 3.12", "elapsed_seconds": 19, "conclusion": "success"},
+      {"name": "Quality and dependency security", "elapsed_seconds": 64, "conclusion": "success"}
+    ]
+  },
+  "codeql": {
+    "url": "https://github.com/yassinbahri/OnceMesh/actions/runs/32822927427",
+    "wall_duration_seconds": 63,
+    "analysis_elapsed_seconds": 59,
+    "conclusion": "success",
+    "findings_fixed": 5,
+    "reviewed_false_positives": 1,
+    "open_alerts_after_review": 0
+  },
+  "counts": {
+    "python_tests": 183,
+    "branch_coverage_percent": 77,
+    "node_checks": 29,
+    "framework_and_runtime_checks": 23,
+    "docker_federation_checks": 20
+  },
+  "limitations": [
+    "Hosted job durations include runner setup and dependency installation.",
+    "This evidence validates the named commit and hosted runner images, not production workload economics.",
+    "Real organization and independently administered federation pilots remain external gates."
+  ]
+}
