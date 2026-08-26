@@ -124,6 +124,11 @@ content-derived validity rule. Timestamps use UTC RFC 3339 with `Z`.
 The manifest digest uses the same canonical JSON and SHA-256 procedure as an
 action. A result manifest is immutable; refreshing creates another manifest.
 
+Result manifest v1 and its exact dependency lineage are defined by
+[`derived-result-lineage-v0.md`](derived-result-lineage-v0.md). Content identity
+proves which upstream bytes were used; it does not by itself prove that a
+mutable upstream source remains fresh.
+
 ## 7. Receipt
 
 A receipt binds a result manifest digest to production metadata:

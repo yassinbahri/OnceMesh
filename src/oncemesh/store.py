@@ -15,7 +15,9 @@ from .canonical import (
     DIGEST_PATTERN,
     canonical_json,
     digest_bytes,
+    invalidation_digest,
     manifest_digest,
+    validate_invalidation,
     validate_manifest,
     validate_source_validation,
     validation_digest,
@@ -38,9 +40,15 @@ class Store(Protocol):
 
     def candidates(self, requested_action_digest: str) -> list[dict[str, Any]]: ...
 
+    def result(self, result_digest: str) -> dict[str, Any] | None: ...
+
     def put_validation(self, record: dict[str, Any]) -> None: ...
 
     def validations(self, result_digest: str) -> list[dict[str, Any]]: ...
+
+    def put_invalidation(self, record: dict[str, Any]) -> None: ...
+
+    def invalidations(self, result_digest: str) -> list[dict[str, Any]]: ...
 
     def put_receipt(self, receipt: dict[str, Any]) -> None: ...
 
@@ -54,7 +62,9 @@ class MemoryStore:
         self.name = name
         self._blobs: dict[str, bytes] = {}
         self._results: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        self._results_by_digest: dict[str, dict[str, Any]] = {}
         self._validations: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        self._invalidations: dict[str, list[dict[str, Any]]] = defaultdict(list)
         self._receipts: dict[str, list[dict[str, Any]]] = defaultdict(list)
         self._lock = RLock()
 
@@ -71,12 +81,19 @@ class MemoryStore:
 
     def put_result(self, manifest: dict[str, Any]) -> None:
         validate_manifest(manifest)
+        digest = manifest_digest(manifest)
         with self._lock:
+            self._results_by_digest[digest] = deepcopy(manifest)
             self._results[manifest["action_digest"]].append(deepcopy(manifest))
 
     def candidates(self, requested_action_digest: str) -> list[dict[str, Any]]:
         with self._lock:
             return deepcopy(list(reversed(self._results.get(requested_action_digest, []))))
+
+    def result(self, result_digest: str) -> dict[str, Any] | None:
+        with self._lock:
+            value = self._results_by_digest.get(result_digest)
+        return deepcopy(value) if value is not None else None
 
     def put_validation(self, record: dict[str, Any]) -> None:
         validate_source_validation(record)
@@ -86,6 +103,15 @@ class MemoryStore:
     def validations(self, result_digest: str) -> list[dict[str, Any]]:
         with self._lock:
             return deepcopy(list(reversed(self._validations.get(result_digest, []))))
+
+    def put_invalidation(self, record: dict[str, Any]) -> None:
+        validate_invalidation(record)
+        with self._lock:
+            self._invalidations[record["result_digest"]].append(deepcopy(record))
+
+    def invalidations(self, result_digest: str) -> list[dict[str, Any]]:
+        with self._lock:
+            return deepcopy(list(reversed(self._invalidations.get(result_digest, []))))
 
     def put_receipt(self, receipt: dict[str, Any]) -> None:
         validate_receipt(receipt)
@@ -105,11 +131,15 @@ class FilesystemStore:
         self.root = Path(root).resolve()
         self.blob_root = self.root / "blobs" / "sha256"
         self.action_root = self.root / "actions" / "sha256"
+        self.result_root = self.root / "results" / "sha256"
         self.validation_root = self.root / "validations" / "sha256"
+        self.invalidation_root = self.root / "invalidations" / "sha256"
         self.receipt_root = self.root / "receipts" / "sha256"
         self.blob_root.mkdir(parents=True, exist_ok=True)
         self.action_root.mkdir(parents=True, exist_ok=True)
+        self.result_root.mkdir(parents=True, exist_ok=True)
         self.validation_root.mkdir(parents=True, exist_ok=True)
+        self.invalidation_root.mkdir(parents=True, exist_ok=True)
         self.receipt_root.mkdir(parents=True, exist_ok=True)
 
     @staticmethod
@@ -125,8 +155,15 @@ class FilesystemStore:
     def _action_path(self, digest: str) -> Path:
         return self.action_root / self._hex_digest(digest)
 
+    def _result_path(self, digest: str) -> Path:
+        value = self._hex_digest(digest)
+        return self.result_root / value[:2] / f"{value[2:]}.json"
+
     def _validation_path(self, result_digest: str) -> Path:
         return self.validation_root / self._hex_digest(result_digest)
+
+    def _invalidation_path(self, result_digest: str) -> Path:
+        return self.invalidation_root / self._hex_digest(result_digest)
 
     def _receipt_path(self, result_digest: str) -> Path:
         return self.receipt_root / self._hex_digest(result_digest)
@@ -168,9 +205,11 @@ class FilesystemStore:
 
     def put_result(self, manifest: dict[str, Any]) -> None:
         validate_manifest(manifest)
-        digest = manifest_digest(manifest).removeprefix("sha256:")
-        path = self._action_path(manifest["action_digest"]) / f"{digest}.json"
-        self._atomic_write(path, canonical_json(manifest))
+        digest = manifest_digest(manifest)
+        encoded = canonical_json(manifest)
+        self._atomic_write(self._result_path(digest), encoded)
+        path = self._action_path(manifest["action_digest"]) / f"{digest.removeprefix('sha256:')}.json"
+        self._atomic_write(path, encoded)
 
     def candidates(self, requested_action_digest: str) -> list[dict[str, Any]]:
         directory = self._action_path(requested_action_digest)
@@ -186,6 +225,19 @@ class FilesystemStore:
         except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
             raise StoreReadError("manifest_read_failed") from error
         return sorted(manifests, key=lambda item: item["produced_at"], reverse=True)
+
+    def result(self, result_digest: str) -> dict[str, Any] | None:
+        path = self._result_path(result_digest)
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+            validate_manifest(value)
+            if manifest_digest(value) != result_digest:
+                raise ValueError("result is indexed under the wrong digest")
+            return value
+        except FileNotFoundError:
+            return None
+        except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
+            raise StoreReadError("result_read_failed") from error
 
     def put_validation(self, record: dict[str, Any]) -> None:
         validate_source_validation(record)
@@ -208,6 +260,28 @@ class FilesystemStore:
         except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
             raise StoreReadError("validation_read_failed") from error
         return sorted(records, key=lambda item: item["validated_at"], reverse=True)
+
+    def put_invalidation(self, record: dict[str, Any]) -> None:
+        validate_invalidation(record)
+        digest = invalidation_digest(record).removeprefix("sha256:")
+        path = self._invalidation_path(record["result_digest"]) / f"{digest}.json"
+        self._atomic_write(path, canonical_json(record))
+
+    def invalidations(self, result_digest: str) -> list[dict[str, Any]]:
+        directory = self._invalidation_path(result_digest)
+        if not directory.exists():
+            return []
+        records: list[dict[str, Any]] = []
+        try:
+            for path in directory.glob("*.json"):
+                value = json.loads(path.read_text(encoding="utf-8"))
+                validate_invalidation(value)
+                if value["result_digest"] != result_digest:
+                    raise ValueError("invalidation is indexed under the wrong result")
+                records.append(value)
+        except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
+            raise StoreReadError("invalidation_read_failed") from error
+        return sorted(records, key=lambda item: item["invalidated_at"], reverse=True)
 
     def put_receipt(self, receipt: dict[str, Any]) -> None:
         validate_receipt(receipt)

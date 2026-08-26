@@ -28,6 +28,12 @@ from .store import Store
 AVAILABILITY_DOMAIN = b"OnceMesh availability manifest v1\x00"
 
 
+def _validate_federation_result(manifest: dict[str, Any]) -> None:
+    validate_manifest(manifest)
+    if manifest["spec_version"] == "oncemesh.result/v1":
+        raise ValueError("federation v0 does not support result v1 lineage")
+
+
 def _exact_keys(value: Any, expected: set[str], label: str) -> None:
     if not isinstance(value, dict) or set(value) != expected:
         raise ValueError(f"invalid {label} fields")
@@ -191,7 +197,7 @@ class PublicPeerCatalog:
         if classification != "public":
             raise ValueError("federation catalog accepts explicitly public results only")
         validate_action(action)
-        validate_manifest(manifest)
+        _validate_federation_result(manifest)
         validate_receipt(receipt, require_signature=True)
         if manifest["action_digest"] != action_digest(action):
             raise ValueError("result does not match published action")
@@ -450,7 +456,7 @@ class FilesystemFederationCacheStore:
             )
             if record["spec_version"] != "oncemesh.federation-cache-entry/v0":
                 raise ValueError("unsupported federation cache entry")
-            validate_manifest(record["manifest"])
+            _validate_federation_result(record["manifest"])
             validate_receipt(record["receipt"], require_signature=True)
             if manifest_digest(record["manifest"]) != record["result_digest"]:
                 raise ValueError("federation cache result digest mismatch")
@@ -464,7 +470,7 @@ class FilesystemFederationCacheStore:
         return records
 
     def import_bundle(self, bundle: FederationBundle, retain_until: datetime) -> None:
-        validate_manifest(bundle.manifest)
+        _validate_federation_result(bundle.manifest)
         validate_receipt(bundle.receipt, require_signature=True)
         result_digest = manifest_digest(bundle.manifest)
         if bundle.receipt["result_digest"] != result_digest:
@@ -623,7 +629,7 @@ def import_from_peer(
     if bundle is None:
         return FederationImportOutcome(False, "bundle_unavailable")
     try:
-        validate_manifest(bundle.manifest)
+        _validate_federation_result(bundle.manifest)
         validate_receipt(bundle.receipt, require_signature=True)
         if manifest_digest(bundle.manifest) != entry["result_digest"]:
             raise ValueError("result digest mismatch")

@@ -61,6 +61,9 @@ OnceMesh identifies computation by canonicalized inputs, implementation version,
 configuration, output schema, and declared variation—not by prompt similarity.
 A stored result is returned only after policy, authorization, freshness, receipt,
 and artifact checks pass. Otherwise the original operation executes normally.
+Derived result v1 manifests can also commit to exact upstream results, so an
+expired, invalidated, corrupt, or untrusted dependency makes the downstream
+result a miss through bounded local lineage verification.
 See the [architecture and trust diagrams](docs/architecture.md).
 
 ## Measured results

@@ -42,6 +42,51 @@ signing-key status, and artifact digests satisfy local policy.
 This makes a hit explainable and a miss safe. Failure falls back to normal
 execution; it does not widen access or silently accept approximate output.
 
+## Freshness and derived results
+
+Content addressing answers “which exact bytes were used?” It does not answer
+“do those bytes still represent the live source?” Results from mutable APIs and
+web sources therefore need a bounded `fresh_until` value or a trusted source
+validation signal. The HTTP profile can use ETag or Last Modified validation;
+an expired result without current trusted validation is a miss.
+
+Multi-hop computations can publish result v1 with exact upstream result
+digests. OnceMesh then checks every required upstream result before admitting
+the derived result. If an upstream result expires, becomes corrupt, loses
+producer trust, or receives a trusted early-invalidation record, the downstream
+result also becomes inadmissible. Artifacts remain immutable and reproducible;
+only their eligibility for a current request changes.
+
+```python
+from oncemesh import manifest_digest, publish_invalidation, publish_result
+
+derived_manifest = publish_result(
+    store,
+    derived_action,
+    {"summary": (summary_bytes, "text/plain")},
+    producer="organization:worker",
+    produced_at=now,
+    fresh_until=now + derived_ttl,
+    dependencies={"source": manifest_digest(source_manifest)},
+)
+
+publish_invalidation(
+    store,
+    manifest_digest(source_manifest),
+    producer="organization:source-owner",
+    invalidated_at=now,
+    reason="source.changed",
+)
+```
+
+Lineage does not repair an incomplete action key. The derived action must still
+identify the exact upstream artifact bytes and every other output-affecting
+input. Traversal defaults to eight levels and 64 dependency edges, fails closed,
+and remains local to configured stores. Federation v0 rejects recursive
+dependency bundles rather than trusting or fetching them transitively.
+Set `Policy(require_lineage=True)` for an operation that requires cascading
+admissibility so lookup cannot fall back to an older result v0 candidate.
+
 ## Choose the right scope
 
 OnceMesh separates identity from distribution. The same exact-action rules can

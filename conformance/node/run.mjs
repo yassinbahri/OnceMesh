@@ -102,6 +102,15 @@ for (const [file, valueField, digestField] of [
   }
 }
 
+for (const vector of load("derived-lineage-v0.json").vectors) {
+  const manifest = canonicalJson(vector.manifest);
+  assertEqual(manifest, vector.manifest_canonical_json, `lineage:${vector.name}:manifest-canonical`);
+  assertEqual(digest(Buffer.from(manifest, "utf8")), vector.manifest_digest, `lineage:${vector.name}:manifest-digest`);
+  const invalidation = canonicalJson(vector.invalidation);
+  assertEqual(invalidation, vector.invalidation_canonical_json, `lineage:${vector.name}:invalidation-canonical`);
+  assertEqual(digest(Buffer.from(invalidation, "utf8")), vector.invalidation_digest, `lineage:${vector.name}:invalidation-digest`);
+}
+
 for (const vector of load("canonicalization-negative-v0.json").vectors) {
   let rejected = false;
   try {
