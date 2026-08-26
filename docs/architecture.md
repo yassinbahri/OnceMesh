@@ -30,6 +30,26 @@ freshness, receipt requirements, key status, and artifact integrity are checked
 before substitution. A failed check returns a reason and falls back to ordinary
 execution.
 
+## Derived-result admissibility
+
+```mermaid
+flowchart LR
+    S[Mutable source] --> A[Exact result A]
+    A -->|result digest + artifact digest| B[Derived result B]
+    V[Trusted validation] --> A
+    X[Trusted invalidation] --> A
+    Q[Lookup B] --> C{B and every upstream result admissible?}
+    B --> C
+    A --> C
+    C -- Yes --> H[Reuse B]
+    C -- No --> M[Miss and execute]
+```
+
+Result v1 commits to exact upstream result-manifest digests. Lookup recursively
+checks those results under the same freshness, producer-trust, invalidation, and
+artifact-integrity policy. Traversal is bounded and local. It never deletes an
+immutable object and federation v0 never fetches dependencies transitively.
+
 ## Shared core and modular adapters
 
 ```mermaid
@@ -127,6 +147,8 @@ local Docker and synthetic organization data cannot satisfy them.
 ## Further reading
 
 - [`action-v0.md`](../spec/action-v0.md) defines exact action identity.
+- [`derived-result-lineage-v0.md`](../spec/derived-result-lineage-v0.md) defines
+  cascading admissibility and immutable invalidation.
 - [`execution-cache-bridge-v0.md`](../spec/execution-cache-bridge-v0.md) defines
   the framework-neutral bridge.
 - [`runtime-adapter-sdk-v0.md`](../spec/runtime-adapter-sdk-v0.md) defines the

@@ -28,6 +28,17 @@ The application supplies an authorization partition and private stores when it
 builds `ExecutionCacheBridge`. The adapter must not invent a tenant identity or
 enable federation.
 
+When one cached result is used to build another, include the upstream artifact
+digest in the derived action identity and publish result v1 with the exact
+upstream result-manifest digest. The first preserves computation identity; the
+second lets lookup propagate freshness, trust, integrity, and explicit
+invalidation. Never substitute one for the other.
+
+Adapters for live sources must define a bounded TTL or an authoritative
+validation method. A URL or request digest alone does not make mutable remote
+state fresh. If no reliable freshness rule exists, keep the operation in shadow
+mode or disable substitution.
+
 ## 3. Reuse or implement a codec
 
 Use `JsonValueCodec` for ordinary JSON values. A custom codec implements only:
@@ -90,6 +101,8 @@ isolation, failure non-publication, and compatibility imports when applicable.
 - Importing `oncemesh` does not import the framework.
 - Serializer and runtime identifiers are stable and documented.
 - Exact keys include all output-affecting inputs and configuration.
+- Derived results identify upstream artifact bytes and attach exact result
+  lineage when cascading admissibility is required.
 - Generic runtime state cannot use a federation-import store.
 - No storage, policy, codec, or index behavior is copied into the adapter.
 - Shared probes, native contract tests, real workflow tests, and full regressions pass.

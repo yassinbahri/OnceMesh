@@ -114,6 +114,28 @@ class FederationExperimentTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "explicitly public"):
             self.catalog.publish(self.action, self.manifest, self.receipt, classification="internal")
 
+    def test_recursive_result_dependencies_are_rejected_by_federation_v0(self):
+        derived_action = echo_action("derived")
+        derived_manifest, derived_receipt = publish_signed_result(
+            self.origin,
+            derived_action,
+            {"result": (b"derived", "text/plain")},
+            producer="org-a:producer",
+            produced_at=self.now,
+            fresh_until=self.now + timedelta(hours=1),
+            executor_environment={"implementation": "org-a-test"},
+            private_key=self.RECEIPT_SEED,
+            dependencies={"source": manifest_digest(self.manifest)},
+        )
+
+        with self.assertRaisesRegex(ValueError, "result v1 lineage"):
+            self.catalog.publish(
+                derived_action,
+                derived_manifest,
+                derived_receipt,
+                classification="public",
+            )
+
     def test_untrusted_availability_identity_fails_closed(self):
         other_key = raw_public_key(bytes.fromhex("55" * 32))
         outcome = import_from_peer(

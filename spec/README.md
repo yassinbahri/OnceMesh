@@ -17,6 +17,9 @@ are interpreted as described by RFC 2119 and RFC 8174.
 
 ## Supporting profiles
 
+- [`derived-result-lineage-v0.md`](derived-result-lineage-v0.md) defines exact
+  upstream result lineage, bounded cascading admissibility, and immutable early
+  invalidation records.
 - [`economic-evidence-v0.md`](economic-evidence-v0.md) defines measured,
   projected, and illustrative savings claims and their required formulas.
 - [`public-mesh-directory-v0.md`](public-mesh-directory-v0.md) defines curated,

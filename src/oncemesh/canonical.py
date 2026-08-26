@@ -113,12 +113,18 @@ def validate_action(action: dict[str, Any]) -> None:
 
 
 def validate_manifest(manifest: dict[str, Any]) -> None:
+    version = manifest.get("spec_version") if isinstance(manifest, dict) else None
+    expected = {
+        "spec_version", "action_digest", "artifacts", "produced_at", "fresh_until", "producer"
+    }
+    if version == "oncemesh.result/v1":
+        expected.add("dependencies")
     _require_exact_keys(
         manifest,
-        {"spec_version", "action_digest", "artifacts", "produced_at", "fresh_until", "producer"},
+        expected,
         "result manifest",
     )
-    if manifest["spec_version"] != "oncemesh.result/v0":
+    if version not in {"oncemesh.result/v0", "oncemesh.result/v1"}:
         raise ValueError("unsupported result spec_version")
     if not isinstance(manifest["action_digest"], str) or not DIGEST_PATTERN.fullmatch(manifest["action_digest"]):
         raise ValueError("action_digest is invalid")
@@ -140,6 +146,29 @@ def validate_manifest(manifest: dict[str, Any]) -> None:
             raise ValueError("artifact.digest is invalid")
         if isinstance(artifact["size"], bool) or not isinstance(artifact["size"], int) or artifact["size"] < 0:
             raise ValueError("artifact.size must be a non-negative integer")
+    if version == "oncemesh.result/v1":
+        if not isinstance(manifest["dependencies"], list):
+            raise ValueError("dependencies must be an array")
+        dependency_names: set[str] = set()
+        dependency_digests: set[str] = set()
+        previous_name: str | None = None
+        for dependency in manifest["dependencies"]:
+            _require_exact_keys(dependency, {"name", "result_digest"}, "dependency")
+            _require_nonempty_string(dependency["name"], "dependency.name")
+            if dependency["name"] in dependency_names:
+                raise ValueError("dependency names must be unique")
+            dependency_names.add(dependency["name"])
+            if previous_name is not None and dependency["name"] <= previous_name:
+                raise ValueError("dependencies must be sorted by name")
+            previous_name = dependency["name"]
+            if (
+                not isinstance(dependency["result_digest"], str)
+                or not DIGEST_PATTERN.fullmatch(dependency["result_digest"])
+            ):
+                raise ValueError("dependency.result_digest is invalid")
+            if dependency["result_digest"] in dependency_digests:
+                raise ValueError("dependency result digests must be unique")
+            dependency_digests.add(dependency["result_digest"])
     canonical_json(manifest)
 
 
@@ -176,6 +205,25 @@ def validate_source_validation(record: dict[str, Any]) -> None:
     canonical_json(record)
 
 
+def validate_invalidation(record: dict[str, Any]) -> None:
+    _require_exact_keys(
+        record,
+        {"spec_version", "result_digest", "invalidated_at", "producer", "reason"},
+        "invalidation",
+    )
+    if record["spec_version"] != "oncemesh.invalidation/v0":
+        raise ValueError("unsupported invalidation spec_version")
+    if (
+        not isinstance(record["result_digest"], str)
+        or not DIGEST_PATTERN.fullmatch(record["result_digest"])
+    ):
+        raise ValueError("result_digest is invalid")
+    _require_utc_timestamp(record["invalidated_at"], "invalidated_at")
+    _require_nonempty_string(record["producer"], "producer")
+    _require_nonempty_string(record["reason"], "reason")
+    canonical_json(record)
+
+
 def action_digest(action: dict[str, Any]) -> str:
     validate_action(action)
     return _object_digest(action)
@@ -188,4 +236,9 @@ def manifest_digest(manifest: dict[str, Any]) -> str:
 
 def validation_digest(record: dict[str, Any]) -> str:
     validate_source_validation(record)
+    return _object_digest(record)
+
+
+def invalidation_digest(record: dict[str, Any]) -> str:
+    validate_invalidation(record)
     return _object_digest(record)

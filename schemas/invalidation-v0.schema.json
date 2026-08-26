@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oncemesh.dev/schemas/invalidation-v0.schema.json",
+  "title": "OnceMesh Invalidation v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "result_digest", "invalidated_at", "producer", "reason"],
+  "properties": {
+    "spec_version": {"const": "oncemesh.invalidation/v0"},
+    "result_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "invalidated_at": {"type": "string", "format": "date-time"},
+    "producer": {"type": "string", "minLength": 1},
+    "reason": {"type": "string", "minLength": 1}
+  }
+}

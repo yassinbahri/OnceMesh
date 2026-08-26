@@ -99,6 +99,10 @@ entries, an advertised oversized result, an actual oversized artifact, or total
 bytes beyond policy fails closed. v0 has no compression, recursive dependencies,
 batch expansion, or peer-provided redirects.
 
+Consequently, federation v0 MUST reject result v1 manifests. It transports
+neither lineage nor invalidation records. A future complete-bundle profile is
+required before dependency resolution may cross an operator boundary.
+
 The reference experiment is an in-process transport and does not claim network
 rate limiting or denial-of-service resistance. Network deployments additionally
 need authentication, timeouts, quotas, request-rate limits, and bounded parsing.

@@ -11,6 +11,9 @@ A local store combines an action cache with a content-addressable store (CAS).
 - Blob bytes are verified against their descriptor during admissibility.
 - Result manifests are immutable.
 - Multiple manifests may exist for one action digest.
+- Result v1 manifests are also addressable by their exact manifest digest so
+  bounded dependency verification does not depend on a mutable action alias.
+- Invalidation records are immutable and indexed by exact result digest.
 - Candidate order is newest `produced_at` first.
 - A malformed stored manifest produces an explainable store rejection rather
   than an application crash or cache hit.

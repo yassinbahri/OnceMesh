@@ -3,6 +3,17 @@
 All notable changes are recorded here. OnceMesh follows Semantic Versioning for
 the Python package and explicit versioning for protocol objects.
 
+## Unreleased
+
+- Added result manifest v1 with exact upstream result lineage and bounded
+  cascading admissibility for derived computations.
+- Added immutable trusted invalidation records for stopping reuse before TTL
+  expiry without deleting artifacts.
+- Added portable Python and Node conformance vectors for lineage manifests and
+  invalidation records.
+- Kept result v0 backward compatible and kept recursive dependencies outside
+  federation v0.
+
 ## 0.1.0 — 2026-08-25
 
 Initial public alpha release candidate.

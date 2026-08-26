@@ -2,15 +2,25 @@
 
 __version__ = "0.1.0"
 
-from .cache import LookupOutcome, Policy, candidate_for_revalidation, publish_result, publish_signed_result, reuse
+from .cache import (
+    LookupOutcome,
+    Policy,
+    candidate_for_revalidation,
+    publish_invalidation,
+    publish_result,
+    publish_signed_result,
+    reuse,
+)
 from .canonical import (
     CanonicalizationError,
     action_digest,
     canonical_json,
     digest_bytes,
+    invalidation_digest,
     manifest_digest,
     validation_digest,
     validate_action,
+    validate_invalidation,
     validate_manifest,
     validate_source_validation,
 )
@@ -142,6 +152,8 @@ __all__ = [
     "digest_bytes",
     "manifest_digest",
     "validation_digest",
+    "invalidation_digest",
+    "publish_invalidation",
     "publish_result",
     "publish_signed_result",
     "reuse",
@@ -152,6 +164,7 @@ __all__ = [
     "read_jsonl",
     "summarize",
     "validate_action",
+    "validate_invalidation",
     "validate_manifest",
     "validate_source_validation",
     "validate_policy_document",

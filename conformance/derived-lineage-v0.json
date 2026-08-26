@@ -1,0 +1,40 @@
+{
+  "spec_version": "oncemesh.conformance/derived-lineage-v0",
+  "vectors": [
+    {
+      "name": "one-exact-upstream-result",
+      "manifest": {
+        "spec_version": "oncemesh.result/v1",
+        "action_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "artifacts": [
+          {
+            "name": "derived",
+            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "size": 7,
+            "media_type": "text/plain"
+          }
+        ],
+        "produced_at": "2026-08-26T12:00:00Z",
+        "fresh_until": "2026-08-26T13:00:00Z",
+        "producer": "operator:example",
+        "dependencies": [
+          {
+            "name": "source",
+            "result_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+          }
+        ]
+      },
+      "manifest_canonical_json": "{\"action_digest\":\"sha256:1111111111111111111111111111111111111111111111111111111111111111\",\"artifacts\":[{\"digest\":\"sha256:2222222222222222222222222222222222222222222222222222222222222222\",\"media_type\":\"text/plain\",\"name\":\"derived\",\"size\":7}],\"dependencies\":[{\"name\":\"source\",\"result_digest\":\"sha256:3333333333333333333333333333333333333333333333333333333333333333\"}],\"fresh_until\":\"2026-08-26T13:00:00Z\",\"produced_at\":\"2026-08-26T12:00:00Z\",\"producer\":\"operator:example\",\"spec_version\":\"oncemesh.result/v1\"}",
+      "manifest_digest": "sha256:0f3d969993f113883855c25623b1b88ebfc29cf861fb1f79a853a7b04a6ad21a",
+      "invalidation": {
+        "spec_version": "oncemesh.invalidation/v0",
+        "result_digest": "sha256:0f3d969993f113883855c25623b1b88ebfc29cf861fb1f79a853a7b04a6ad21a",
+        "invalidated_at": "2026-08-26T12:30:00Z",
+        "producer": "operator:example",
+        "reason": "source.changed"
+      },
+      "invalidation_canonical_json": "{\"invalidated_at\":\"2026-08-26T12:30:00Z\",\"producer\":\"operator:example\",\"reason\":\"source.changed\",\"result_digest\":\"sha256:0f3d969993f113883855c25623b1b88ebfc29cf861fb1f79a853a7b04a6ad21a\",\"spec_version\":\"oncemesh.invalidation/v0\"}",
+      "invalidation_digest": "sha256:25d19e09ad75ce3ea6b68bcf0552d4cef71ea706be14df3cac6e7f3568fa3763"
+    }
+  ]
+}
