@@ -35,3 +35,7 @@ Only status 200 is cacheable in v1. The configured byte limit applies to the
 received body. The host application remains responsible for DNS, private-network
 and egress policy; the reference adapter requires an injected transport so it
 cannot bypass that policy accidentally.
+
+For non-normative deployment guidance on DNS changes, mutable endpoints,
+action identity, TTLs, and validators, see
+[`Mutable external state is an adapter obligation`](../../docs/user-guide.md#mutable-external-state-is-an-adapter-obligation).

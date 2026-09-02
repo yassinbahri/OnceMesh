@@ -87,6 +87,57 @@ dependency bundles rather than trusting or fetching them transitively.
 Set `Policy(require_lineage=True)` for an operation that requires cascading
 admissibility so lookup cannot fall back to an older result v0 candidate.
 
+## Mutable external state is an adapter obligation
+
+OnceMesh does **not** automatically observe DNS changes, mutable endpoints,
+environment variables, model deployments, database revisions, or partially
+updated upstream systems. An adapter must either put every output-affecting
+input into action identity or supply a bounded, authoritative freshness rule.
+Anything it does neither for is hidden state, and a cache hit can then be
+incorrect even when every digest and signature verifies.
+
+Action identity and freshness answer different questions:
+
+- **Identity:** “Would these declared inputs and this executor produce the same
+  computation?” Use content digests, immutable source revisions, deployment
+  revisions, and explicit configuration versions here.
+- **Freshness:** “May this exact result still stand in for the live source now?”
+  Use a bounded `fresh_until` or a trusted validation record produced from an
+  ETag or Last-Modified check here.
+
+Useful patterns include:
+
+| External dependency | Safer adapter obligation |
+| --- | --- |
+| File, object, or document | Put its content digest or immutable source revision in action identity. |
+| Model or tool deployment | Put an immutable deployment or build revision in executor configuration. |
+| HTTP representation | Preserve output-affecting request inputs, bound the result with a TTL, and use ETag or Last-Modified validation when the source supports it. |
+| Mutable database or API snapshot | Include an authoritative snapshot/revision token, or keep substitution disabled when no such token exists. |
+| Hidden environment setting | Declare a non-secret version or digest in configuration; never rely on ambient process state being detected. |
+
+A TTL only limits how long a mistake can remain admissible. It does not prove
+that the source stayed unchanged during that interval. Conditional validation
+only speaks for the representation and validator the source actually checked.
+When the rule is uncertain, begin in shadow mode, compare the candidate with a
+normal execution, and keep substitution disabled until the identity and
+freshness model has evidence behind it. The deployment kill switch
+`ONCEMESH_DISABLE_SUBSTITUTION=1` remains the immediate fallback.
+
+### Unsafe DNS and mutable-endpoint example
+
+Suppose an adapter keys a fetch only by `https://inventory.internal/current`.
+DNS later moves that hostname to a blue/green deployment with different data,
+or the endpoint changes its response without changing the URL. OnceMesh cannot
+see either change from the old action document. Reusing the old result until a
+guessed TTL expires is unsafe when current inventory affects fulfillment,
+authorization, money, or another correctness boundary.
+
+The operation must not be shared unless the adapter can bind identity to an
+immutable representation or revision and apply trustworthy revalidation. If it
+cannot, use shadow mode for measurement or disable substitution for that
+operation. Network and DNS controls also remain the host application's
+responsibility; cache identity is not an SSRF or DNS-rebinding defense.
+
 ## Choose the right scope
 
 OnceMesh separates identity from distribution. The same exact-action rules can
