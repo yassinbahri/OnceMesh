@@ -37,7 +37,9 @@ invalidation. Never substitute one for the other.
 Adapters for live sources must define a bounded TTL or an authoritative
 validation method. A URL or request digest alone does not make mutable remote
 state fresh. If no reliable freshness rule exists, keep the operation in shadow
-mode or disable substitution.
+mode or disable substitution. See
+[`Mutable external state is an adapter obligation`](../user-guide.md#mutable-external-state-is-an-adapter-obligation)
+for safe revision, validator, deployment, environment, and DNS patterns.
 
 ## 3. Reuse or implement a codec
 
